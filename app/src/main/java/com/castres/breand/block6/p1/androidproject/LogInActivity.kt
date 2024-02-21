@@ -42,6 +42,13 @@ class LogInActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+        loginCA.setOnClickListener {
+            // Redirect to ForgotPasswordActivity
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
+
         // Mock user registration
         // For demonstration purposes, add a user to the list
         registeredUsers.add(User("test@example.com", "password"))
