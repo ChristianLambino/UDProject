@@ -10,10 +10,11 @@ import android.widget.Toast
 
 class LogInActivity : AppCompatActivity() {
 
-    private lateinit var loginEmail : EditText
-    private lateinit var loginPW : EditText
-    private lateinit var loginFP : TextView
-    private lateinit var loginButton : Button
+
+    private lateinit var loginEmail: EditText
+    private lateinit var loginPW: EditText
+    private lateinit var loginFP: TextView
+    private lateinit var loginButton: Button
     private lateinit var loginCA: TextView
 
     // Sample list to represent registered users
@@ -21,7 +22,6 @@ class LogInActivity : AppCompatActivity() {
 
     // Track login attempts
     private var loginAttempts = 0
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +35,9 @@ class LogInActivity : AppCompatActivity() {
         loginCA = findViewById(R.id.loginCA)
 
         // Mock user registration
+        // For demonstration purposes, add a user to the list
+        registeredUsers.add(User("test@example.com", "password"))
+
         // Set click listener for 'Forgot Password' TextView
         loginFP.setOnClickListener {
             // Redirect to ForgotPasswordActivity
@@ -42,16 +45,12 @@ class LogInActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
+        // Set click listener for 'Create Account' TextView
         loginCA.setOnClickListener {
-            // Redirect to ForgotPasswordActivity
+            // Redirect to register activity
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
-
-        // Mock user registration
-        // For demonstration purposes, add a user to the list
-        registeredUsers.add(User("test@example.com", "password"))
 
         // Set click listener for Login Button
         loginButton.setOnClickListener {
@@ -69,14 +68,14 @@ class LogInActivity : AppCompatActivity() {
             loginAttempts = 0
 
             // Check if the entered email and password match a registered user
-            val matchedUser = registeredUsers.find { it.email == enteredEmail && it.password == enteredPassword }
+            val matchedUser =
+                registeredUsers.find { it.email == enteredEmail && it.password == enteredPassword }
 
             if (matchedUser != null) {
-                if (matchedUser != null) {
-                    // Login successful, redirect to MainActivity
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish() // Finish the login activity to prevent going back to it
+                // Login successful, redirect to MainActivity
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish() // Finish the login activity to prevent going back to it
                 // Login successful, you can proceed to the next activity or perform other actions
                 Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
             } else {
@@ -84,22 +83,22 @@ class LogInActivity : AppCompatActivity() {
                 loginAttempts++
 
                 // Show a prompt and allow multiple attempts
-                Toast.makeText(this, "Invalid Email or Password (Attempt $loginAttempts)", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Invalid Email or Password (Attempt $loginAttempts)",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
+    }
 
-        // Set click listener for 'Create Account' TextView
-        loginCA.setOnClickListener {
-            // Redirect to register activity
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+    data class User(val email: String, val password: String) {
+        companion object {
+            const val BASE_URL =
+                "https://cyberservice-96805b7c1a96.herokuapp.com/login"
         }
-
-        // Other setup code...
     }
 }
-
-data class User(val email: String, val password: String)}
 
 
 
