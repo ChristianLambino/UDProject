@@ -1,6 +1,6 @@
-package com.castres.breand.block6.p1.AndroidProject
+package com.castres.breand.block6.p1.androidproject
 
-
+import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -10,9 +10,13 @@ object RetrofitInstance {
 
     fun getRetrofitInstance(): Retrofit {
         if (!::retrofit.isInitialized) {
+            // Create Gson instance with lenient mode
+            val gson = GsonBuilder().setLenient().create()
+
+            // Configure Retrofit with GsonConverterFactory and lenient mode
             retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
         }
         return retrofit

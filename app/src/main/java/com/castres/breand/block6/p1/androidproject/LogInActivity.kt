@@ -1,28 +1,26 @@
 package com.castres.breand.block6.p1.androidproject
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.castres.breand.block6.p1.androidproject.RetrofitInstance
+import com.castres.breand.block6.p1.androidproject.data.API
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LogInActivity : AppCompatActivity() {
-
 
     private lateinit var loginEmail: EditText
     private lateinit var loginPW: EditText
     private lateinit var loginFP: TextView
     private lateinit var loginButton: Button
     private lateinit var loginCA: TextView
-
-    // Sample list to represent registered users
-    private val registeredUsers = mutableListOf<User>()
-
-    // Track login attempts
-    private var loginAttempts = 0
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +31,6 @@ class LogInActivity : AppCompatActivity() {
         loginFP = findViewById(R.id.loginFP)
         loginButton = findViewById(R.id.loginButton)
         loginCA = findViewById(R.id.loginCA)
-
-        // Mock user registration
-        // For demonstration purposes, add a user to the list
-        registeredUsers.add(User("test@example.com", "password"))
 
         // Set click listener for 'Forgot Password' TextView
         loginFP.setOnClickListener {
@@ -59,43 +53,37 @@ class LogInActivity : AppCompatActivity() {
 
             // Check for empty fields
             if (enteredEmail.isEmpty() || enteredPassword.isEmpty()) {
-                // TODO: Show prompt for empty fields
-                Toast.makeText(this, "Invalid Email or Password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Email or Password is empty", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Reset login attempts if both email and password are provided
-            loginAttempts = 0
-
-            // Check if the entered email and password match a registered user
-            val matchedUser =
-                registeredUsers.find { it.email == enteredEmail && it.password == enteredPassword }
-
-            if (matchedUser != null) {
-                // Login successful, redirect to MainActivity
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish() // Finish the login activity to prevent going back to it
-                // Login successful, you can proceed to the next activity or perform other actions
-                Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-            } else {
-                // Increment login attempts
-                loginAttempts++
-
-                // Show a prompt and allow multiple attempts
-                Toast.makeText(
-                    this,
-                    "Invalid Email or Password (Attempt $loginAttempts)",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            // Perform login operation
+            loginUser(enteredEmail, enteredPassword)
         }
     }
 
-    data class User(val email: String, val password: String) {
-        companion object {
-            const val BASE_URL =
-                "https://cyberservice-96805b7c1a96.herokuapp.com/login"
+    private fun loginUser(email: String, password: String) {
+        // Create an instance of the ApiService using RetrofitInstance
+        val apiService = RetrofitInstance.getRetrofitInstance().create(API::class.java)
+
+        // Make the API call in a coroutine
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                // Call the userLogin function
+                val user = withContext(Dispatchers.IO) {
+                    apiService.userLogin(email, password)
+                }
+
+                // Login successful, redirect to MainActivity
+                val intent = Intent(this@LogInActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish() // Finish the login activity to prevent going back to it
+                // Login successful, you can proceed to the next activity or perform other actions
+                Toast.makeText(this@LogInActivity, "Login successful", Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                // Handle login failure (e.g., invalid credentials, network error)
+                Toast.makeText(this@LogInActivity, "Login failed: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

@@ -7,6 +7,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
+import com.castres.breand.block6.p1.androidproject.R
+import com.castres.breand.block6.p1.androidproject.LogInActivity
 
 class ForgotPasswordActivity : AppCompatActivity() {
 
@@ -34,7 +37,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         fpLogIn.setOnClickListener {
             // Redirect the user to the LogInActivity
-            startActivity(Intent(this,LogInActivity::class.java))
+            startActivity(Intent(this, LogInActivity::class.java))
             finish() // Finish the current activity to prevent going back to it
         }
 
