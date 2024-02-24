@@ -111,7 +111,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="280dp"
         android:ems="10"
-        android:hint="Adress"
+        android:hint="Address"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -144,17 +144,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.898" />
 
-    <TextView
-        android:id="@+id/register_AC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Already Created?"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.368"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.945" />
 
     <TextView
         android:id="@+id/loginTextView"

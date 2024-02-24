@@ -1,24 +1,30 @@
 package com.castres.breand.block6.p1.androidproject
 
+import com.castres.breand.block6.p1.androidproject.data.modeling.API
+import com.castres.breand.block6.p1.androidproject.data.modeling.API.Companion.BASE_URL
 import com.google.gson.GsonBuilder
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
-    private const val BASE_URL = "https://cyberservice-96805b7c1a96.herokuapp.com/"
-    private lateinit var retrofit: Retrofit
 
-    fun getRetrofitInstance(): Retrofit {
-        if (!::retrofit.isInitialized) {
-            // Create Gson instance with lenient mode
-            val gson = GsonBuilder().setLenient().create()
-
-            // Configure Retrofit with GsonConverterFactory and lenient mode
-            retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build()
-        }
-        return retrofit
+    private val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
     }
+
+    private val client: OkHttpClient = OkHttpClient.Builder()
+        .addInterceptor(interceptor)
+        .build()
+
+    private val retrofit: Retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+        .build()
+
+    val api: API = retrofit.create(API::class.java)
+
 }
+

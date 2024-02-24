@@ -1,6 +1,5 @@
 package com.castres.breand.block6.p1.androidproject
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -8,11 +7,10 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.castres.breand.block6.p1.androidproject.data.API
+import com.castres.breand.block6.p1.androidproject.data.model.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -25,8 +23,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var registerButton: Button
     private lateinit var loginTextView: TextView
 
-    // Retrofit API service
-    private val apiService = RetrofitInstance.getRetrofitInstance().create(API::class.java)
+    private val API = RetrofitInstance.api
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,26 +61,36 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerUser(email: String, name: String, password: String,confirmPassword: String, phone: String, address: String) {
+    private fun registerUser(email: String, name: String, password: String, confirmPassword: String, phone: String, address: String) {
+        val userData = User(email, name, password, confirmPassword, phone, address) // Create UserData object
+
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                // Call the API to register the user
-                val newUser = withContext(Dispatchers.IO) {
-                    apiService.registerUser(name, email, password,confirmPassword, phone, address)
+                // Call the registerUser function from the Retrofit service
+                val response = API.registerUser(userData)
+
+                // Check if the request was successful
+                if (response.isSuccessful) {
+                    // Handle successful registration
+                    Toast.makeText(this@RegisterActivity, "Registration successful", Toast.LENGTH_SHORT).show()
+
+                    // Optionally, navigate to another activity after registration
+                    val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish() // Finish the registration activity to prevent going back to it
+                } else {
+                    // Handle registration failure (e.g., user already exists, validation errors)
+                    val errorMessage = response.errorBody()?.string() ?: "Unknown error"
+                    Toast.makeText(this@RegisterActivity, "Registration failed: $errorMessage", Toast.LENGTH_SHORT).show()
                 }
-
-                // Handle successful registration
-                Toast.makeText(this@RegisterActivity, "Registration successful", Toast.LENGTH_SHORT).show()
-
-                // Optionally, navigate to another activity after registration
-                val intent = Intent(this@RegisterActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish() // Finish the registration activity to prevent going back to it
             } catch (e: Exception) {
-                // Handle registration failure (e.g., user already exists, network error)
+                // Handle network errors
                 Toast.makeText(this@RegisterActivity, "Registration failed: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
+
+
 }
 

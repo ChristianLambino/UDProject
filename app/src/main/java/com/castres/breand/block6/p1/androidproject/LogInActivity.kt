@@ -7,8 +7,6 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.castres.breand.block6.p1.androidproject.RetrofitInstance
-import com.castres.breand.block6.p1.androidproject.data.API
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -55,23 +53,23 @@ class LogInActivity : AppCompatActivity() {
             if (enteredEmail.isEmpty() || enteredPassword.isEmpty()) {
                 Toast.makeText(this, "Email or Password is empty", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            }
+            }else{
 
             // Perform login operation
-            loginUser(enteredEmail, enteredPassword)
+            loginUser(enteredEmail, enteredPassword)}
         }
     }
 
     private fun loginUser(email: String, password: String) {
         // Create an instance of the ApiService using RetrofitInstance
-        val apiService = RetrofitInstance.getRetrofitInstance().create(API::class.java)
+        val apiService = RetrofitInstance.api
 
         // Make the API call in a coroutine
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 // Call the userLogin function
-                val user = withContext(Dispatchers.IO) {
-                    apiService.userLogin(email, password)
+                val users = withContext(Dispatchers.IO) {
+                    apiService.userLogin()
                 }
 
                 // Login successful, redirect to MainActivity
@@ -87,6 +85,3 @@ class LogInActivity : AppCompatActivity() {
         }
     }
 }
-
-
-
