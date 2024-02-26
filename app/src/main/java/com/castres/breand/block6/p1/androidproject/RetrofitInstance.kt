@@ -1,7 +1,7 @@
 package com.castres.breand.block6.p1.androidproject
 
-import com.castres.breand.block6.p1.androidproject.data.modeling.API
-import com.castres.breand.block6.p1.androidproject.data.modeling.API.Companion.BASE_URL
+import com.castres.breand.block6.p1.androidproject.data.model.modeling.API
+import com.castres.breand.block6.p1.androidproject.data.model.modeling.API.Companion.BASE_URL
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

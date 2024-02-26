@@ -7,7 +7,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.castres.breand.block6.p1.androidproject.data.model.User
+import com.castres.breand.block6.p1.androidproject.dataclass.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -57,12 +57,12 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             // Register the user using Retrofit
-            registerUser(email, name, password,confirmPassword, phone, address)
+            registerUser()
         }
     }
 
-    private fun registerUser(email: String, name: String, password: String, confirmPassword: String, phone: String, address: String) {
-        val userData = User(email, name, password, confirmPassword, phone, address) // Create UserData object
+    private fun registerUser() {
+        val userData = User() // Create UserData object
 
         GlobalScope.launch(Dispatchers.Main) {
             try {

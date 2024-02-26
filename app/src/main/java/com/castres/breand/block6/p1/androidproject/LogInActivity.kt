@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.castres.breand.block6.p1.androidproject.dataclass.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -69,7 +70,7 @@ class LogInActivity : AppCompatActivity() {
             try {
                 // Call the userLogin function
                 val users = withContext(Dispatchers.IO) {
-                    apiService.userLogin()
+                    apiService.userLogin(User())
                 }
 
                 // Login successful, redirect to MainActivity
