@@ -30,12 +30,13 @@
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_main)
 
-            init()
+            initNewArrivals()
+            initComponents()
+            initPartnerships()
 
         }
 
-
-        private fun init() {
+        private fun initNewArrivals() {
             // new arrivals
             recyclerView = findViewById(R.id.recyclerView) ?: return // Return early if recyclerView is null
             recyclerView.setHasFixedSize(true)
@@ -44,39 +45,14 @@
             snapHelper.attachToRecyclerView(recyclerView)
             newArrivalsList = ArrayList()
 
-            addDataToList()
+            addDataToNewArrivalsList()
 
             newArrivalsAdapter = NewArrivalsAdapter(newArrivalsList)
             recyclerView.adapter = newArrivalsAdapter
-
-            // components
-            recyclerView1 = findViewById(R.id.recyclerView2)
-            recyclerView1.setHasFixedSize(true)
-            recyclerView1.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-            val snapHelper1: SnapHelper = LinearSnapHelper()
-            snapHelper1.attachToRecyclerView(recyclerView1)
-            componentsList = ArrayList()
-
-            addDataToList2()
-
-            componentsAdapter = ComponentsAdapter(componentsList)
-            recyclerView1.adapter = componentsAdapter
-
-            // partnerships
-            recyclerView2 = findViewById(R.id.recyclerView3)
-            recyclerView2.setHasFixedSize(true)
-            recyclerView2.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-            val snapHelper2: SnapHelper = LinearSnapHelper()
-            snapHelper2.attachToRecyclerView(recyclerView2)
-            psList = ArrayList()
-
-            addDataToList3()
-
-            psAdapter = PartnershipsAdapter(psList)
-            recyclerView2.adapter = psAdapter
         }
 
-        private fun addDataToList() {
+
+        private fun addDataToNewArrivalsList() {
             newArrivalsList.add(NewArrivals(R.drawable.csd_logo, "Item1"))
             newArrivalsList.add(NewArrivals(R.drawable.csd_logo, "Item2"))
             newArrivalsList.add(NewArrivals(R.drawable.csd_logo, "Item3"))
@@ -84,9 +60,20 @@
             newArrivalsList.add(NewArrivals(R.drawable.csd_logo, "Item5"))
             newArrivalsList.add(NewArrivals(R.drawable.csd_logo, "Item6"))
         }
+        private fun initComponents() {
+            recyclerView1 = findViewById(R.id.recyclerView2)
+            recyclerView1.setHasFixedSize(true)
+            recyclerView1.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+            val snapHelper1: SnapHelper = LinearSnapHelper()
+            snapHelper1.attachToRecyclerView(recyclerView1)
+            componentsList = ArrayList()
 
+            addDataToComponentsList()
 
-        private fun addDataToList2 (){
+            componentsAdapter = ComponentsAdapter(componentsList)
+            recyclerView1.adapter = componentsAdapter
+        }
+        private fun addDataToComponentsList (){
             componentsList.add(Components(R.drawable.csd_logo, "Item1"))
             componentsList.add(Components(R.drawable.csd_logo, "Item2"))
             componentsList.add(Components(R.drawable.csd_logo, "Item3"))
@@ -94,24 +81,24 @@
             componentsList.add(Components(R.drawable.csd_logo, "Item5"))
             componentsList.add(Components(R.drawable.csd_logo, "Item6"))
 
-            // Remove these lines as recyclerView2 is already initialized in onCreate
-            // recyclerView2 = findViewById(R.id.recyclerView3)
-            // recyclerView2.setHasFixedSize(true)
-            // recyclerView2.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL,false )
-
-            val snapHelper : SnapHelper = LinearSnapHelper()
-            snapHelper.attachToRecyclerView(recyclerView2) // Use recyclerView2 instead of recyclerView
-
-            psList = ArrayList()
-
-            addDataToList3()
-
-            psAdapter = PartnershipsAdapter(psList)
-            recyclerView2.adapter = psAdapter // Set the adapter to recyclerView2 instead of recyclerView
 
         }
 
-        private fun addDataToList3 () {
+        private fun initPartnerships(){
+            recyclerView2 = findViewById(R.id.recyclerView3)
+            recyclerView2.setHasFixedSize(true)
+            recyclerView2.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+            val snapHelper2: SnapHelper = LinearSnapHelper()
+            snapHelper2.attachToRecyclerView(recyclerView2)
+            psList = ArrayList()
+
+            addDataToPartnershipsList()
+
+            psAdapter = PartnershipsAdapter(psList)
+            recyclerView2.adapter = psAdapter
+        }
+
+        private fun addDataToPartnershipsList () {
             psList.add(Partnerships(R.drawable.csd_logo, "Item1"))
             psList.add(Partnerships(R.drawable.csd_logo, "Item2"))
             psList.add(Partnerships(R.drawable.csd_logo, "Item3"))
