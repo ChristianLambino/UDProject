@@ -7,9 +7,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.castres.breand.block6.p1.androidproject.dataclass.User
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -65,24 +65,38 @@ class LogInActivity : AppCompatActivity() {
         // Create an instance of the ApiService using RetrofitInstance
         val apiService = RetrofitInstance.api
 
+        // Create a User object with the entered email and password
+        val user = User(email = email, password = password)
+
         // Make the API call in a coroutine
-        GlobalScope.launch(Dispatchers.Main) {
+        lifecycleScope.launch(Dispatchers.Main) {
             try {
-                // Call the userLogin function
-                val users = withContext(Dispatchers.IO) {
-                    apiService.userLogin(User())
+                // Call the userLogin function with the user object
+                val response = withContext(Dispatchers.IO) {
+                    apiService.userLogin(user)
                 }
 
-                // Login successful, redirect to MainActivity
-                val intent = Intent(this@LogInActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish() // Finish the login activity to prevent going back to it
-                // Login successful, you can proceed to the next activity or perform other actions
-                Toast.makeText(this@LogInActivity, "Login successful", Toast.LENGTH_SHORT).show()
+                // Check if the response is successful
+                if (response.isSuccessful) {
+                    //val token = response.body()?.token
+                    Toast.makeText(this@LogInActivity, "Login successful", Toast.LENGTH_SHORT).show()
+
+                    // Optionally, navigate to another activity after registration
+                    val intent = Intent(this@LogInActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+
+                } else {
+                    // Handle login failure (e.g., invalid credentials)
+                    Toast.makeText(this@LogInActivity, "Login failed: ${response.message()}", Toast.LENGTH_SHORT).show()
+                }
             } catch (e: Exception) {
-                // Handle login failure (e.g., invalid credentials, network error)
+                // Handle network or other errors
                 Toast.makeText(this@LogInActivity, "Login failed: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
 }
+
+

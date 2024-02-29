@@ -11,6 +11,7 @@ import com.castres.breand.block6.p1.androidproject.dataclass.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.io.BufferedReader
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -57,12 +58,12 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             // Register the user using Retrofit
-            registerUser()
+            registerUser(email, password)
         }
     }
 
-    private fun registerUser() {
-        val userData = User() // Create UserData object
+    private fun registerUser(email: String, password: String) {
+        val userData = User(email, password) // Create UserData object
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
@@ -79,8 +80,16 @@ class RegisterActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish() // Finish the registration activity to prevent going back to it
                 } else {
-                    // Handle registration failure (e.g., user already exists, validation errors)
-                    val errorMessage = response.errorBody()?.string() ?: "Unknown error"
+                    // Read error body only when the response indicates a failure
+                    val errorBody = response.errorBody()?.charStream()
+                    val errorMessage = if (errorBody != null) {
+                        val reader = BufferedReader(errorBody)
+                        reader.use {
+                            it.readText() // Read the error message as a string
+                        }
+                    } else {
+                        "Unknown error"
+                    }
                     Toast.makeText(this@RegisterActivity, "Registration failed: $errorMessage", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {

@@ -27,7 +27,7 @@
                 android:src="@drawable/ryzen7" />
 
             <TextView
-                android:id="@+id/Name"
+                android:id="@+id/name"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/Price"
+                android:id="@+id/price"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
