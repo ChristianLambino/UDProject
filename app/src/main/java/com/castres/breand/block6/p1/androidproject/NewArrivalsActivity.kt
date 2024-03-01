@@ -3,23 +3,23 @@ package com.castres.breand.block6.p1.androidproject
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
-import com.castres.breand.block6.p1.androidproject.databinding.ActivityMainBinding
+import com.castres.breand.block6.p1.androidproject.databinding.ActivityNewArrivalsBinding
 
 
 class NewArrivalsActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityNewArrivalsBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityNewArrivalsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         populateNewArrItems()
 
-        val mainActivity = this
-        binding.recyclerView.apply {
+
+        binding.newArrivalsRV.apply {
             layoutManager = GridLayoutManager(applicationContext, 3)
             adapter = NewArrAdapter(newArrList)
         }
