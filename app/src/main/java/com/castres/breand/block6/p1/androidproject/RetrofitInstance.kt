@@ -7,15 +7,16 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 object RetrofitInstance {
+    private const val URL = "https://cyberservice-96805b7c1a96.herokuapp.com/"
 
     // Create an interceptor to add the authentication token to the request headers
     private val authTokenInterceptor = Interceptor { chain ->
         val originalRequest = chain.request()
 
-        // Add the authentication token to the request headers if it's not null
-        val token = authToken
+        val token = String
         val requestBuilder = originalRequest.newBuilder()
         if (token != null) {
             requestBuilder.addHeader("Authorization", "Bearer $token")
@@ -29,20 +30,18 @@ object RetrofitInstance {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
-    // Create OkHttpClient with the interceptor added
     private val client: OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(interceptor)
-        .addInterceptor(authTokenInterceptor) // Add the authentication token interceptor
+        .addInterceptor(authTokenInterceptor)
         .build()
 
     private val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(API.BASE_URL)
+        .baseUrl(URL)
         .client(client)
+        .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
         .build()
 
     val api: API = retrofit.create(API::class.java)
-
-    var authToken: String? = null // Define authToken as a mutable variable
 
 }
