@@ -18,10 +18,10 @@ class NewArrivalsActivity : AppCompatActivity() {
 
         populateNewArrItems()
 
-
+        val newArrActivity = this
         binding.newArrivalsRV.apply {
             layoutManager = GridLayoutManager(applicationContext, 3)
-            adapter = NewArrAdapter(newArrList)
+            adapter = NewArrAdapter(newArrList, newArrActivity )
         }
     }
 
@@ -37,7 +37,7 @@ class NewArrivalsActivity : AppCompatActivity() {
 
         val na2 = NewArrItems(
             R.drawable.csd_logo,
-            "Item1",
+            "Item2",
             "xxxxx",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"
         )
@@ -45,7 +45,7 @@ class NewArrivalsActivity : AppCompatActivity() {
 
         val na3 = NewArrItems(
             R.drawable.csd_logo,
-            "Item1",
+            "Item3",
             "xxxxx",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"
         )
@@ -53,7 +53,7 @@ class NewArrivalsActivity : AppCompatActivity() {
 
         val na4 = NewArrItems(
             R.drawable.csd_logo,
-            "Item1",
+            "Item4",
             "xxxxx",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"
         )
@@ -61,7 +61,7 @@ class NewArrivalsActivity : AppCompatActivity() {
 
         val na5 = NewArrItems(
             R.drawable.csd_logo,
-            "Item1",
+            "Item5",
             "xxxxx",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"
         )
@@ -69,7 +69,7 @@ class NewArrivalsActivity : AppCompatActivity() {
 
         val na6 = NewArrItems(
             R.drawable.csd_logo,
-            "Item1",
+            "Item6",
             "xxxxx",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"
         )
@@ -77,7 +77,7 @@ class NewArrivalsActivity : AppCompatActivity() {
 
         val na7 = NewArrItems(
             R.drawable.csd_logo,
-            "Item1",
+            "Item7",
             "xxxxx",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"
         )
@@ -85,7 +85,7 @@ class NewArrivalsActivity : AppCompatActivity() {
 
         val na8 = NewArrItems(
             R.drawable.csd_logo,
-            "Item1",
+            "Item8",
             "xxxxx",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"
         )
@@ -93,7 +93,7 @@ class NewArrivalsActivity : AppCompatActivity() {
 
         val na9 = NewArrItems(
             R.drawable.csd_logo,
-            "Item1",
+            "Item9",
             "xxxxx",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"
         )
@@ -101,7 +101,7 @@ class NewArrivalsActivity : AppCompatActivity() {
 
         val na10 = NewArrItems(
             R.drawable.csd_logo,
-            "Item1",
+            "Item10",
             "xxxxx",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"
         )
@@ -109,7 +109,7 @@ class NewArrivalsActivity : AppCompatActivity() {
 
         val na11 = NewArrItems(
             R.drawable.csd_logo,
-            "Item1",
+            "Item11",
             "xxxxx",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"
         )
@@ -117,24 +117,14 @@ class NewArrivalsActivity : AppCompatActivity() {
 
         val na12 = NewArrItems(
             R.drawable.csd_logo,
-            "Item1",
+            "Item12",
             "xxxxx",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"
         )
         newArrList.add(na12)
 
-        newArrList.add(na1)
-        newArrList.add(na2)
-        newArrList.add(na3)
-        newArrList.add(na4)
-        newArrList.add(na5)
-        newArrList.add(na6)
-        newArrList.add(na7)
-        newArrList.add(na8)
-        newArrList.add(na9)
-        newArrList.add(na10)
-        newArrList.add(na11)
-        newArrList.add(na12)
+
+
 
     }
 

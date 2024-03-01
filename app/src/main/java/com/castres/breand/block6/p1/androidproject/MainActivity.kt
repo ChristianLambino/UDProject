@@ -9,7 +9,7 @@
     import androidx.recyclerview.widget.RecyclerView
     import androidx.recyclerview.widget.SnapHelper
 
-    class MainActivity : AppCompatActivity() {
+    class MainActivity : AppCompatActivity(), NewArrClickListener {
 
         //start of new arrivals
 
@@ -114,6 +114,12 @@
             psList.add(Partnerships(R.drawable.csd_logo, "Item4"))
             psList.add(Partnerships(R.drawable.csd_logo, "Item5"))
             psList.add(Partnerships(R.drawable.csd_logo, "Item6"))
+        }
+
+        override fun onClick(newArrItems: NewArrItems) {
+            val intent = Intent(applicationContext, NewArrivalsDetailActivity::class.java)
+            intent.putExtra(NEW_ARR_ID_EXTRA, newArrItems.id)
+            startActivity(intent)
         }
 
     }
