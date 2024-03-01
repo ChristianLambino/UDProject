@@ -1,6 +1,8 @@
     package com.castres.breand.block6.p1.androidproject
 
+    import android.content.Intent
     import android.os.Bundle
+    import android.widget.TextView
     import androidx.appcompat.app.AppCompatActivity
     import androidx.recyclerview.widget.LinearLayoutManager
     import androidx.recyclerview.widget.LinearSnapHelper
@@ -33,6 +35,13 @@
             initNewArrivals()
             initComponents()
             initPartnerships()
+
+            val redirectsToNewArrivalsActivity : TextView = findViewById(R.id.textView3)
+
+            redirectsToNewArrivalsActivity.setOnClickListener{
+                val intent = Intent(this@MainActivity, NewArrivalsActivity::class.java)
+                startActivity(intent)
+            }
 
         }
 
