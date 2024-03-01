@@ -8,11 +8,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.castres.breand.block6.p1.androidproject.dataclass.User
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.io.BufferedReader
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -24,8 +25,6 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var Address: EditText
     private lateinit var registerButton: Button
     private lateinit var loginTextView: TextView
-
-    private val API = RetrofitInstance.api
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,49 +58,41 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             // Register the user using Retrofit
-            registerUser(email, password)
+            val userData = User()
+            registerUser(userData)
         }
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
-    private fun registerUser(email: String, password: String) {
-        val userData = User(email, password) // Create UserData object
-
+    private fun registerUser(userData: User) {
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                // Call the registerUser function from the Retrofit service
-                val response = API.registerUser(userData)
+                val api = RetrofitInstance.api
+                val call = api.registerUser(userData)
 
-                // Check if the request was successful
-                if (response.isSuccessful) {
-                    // Handle successful registration
-                    Toast.makeText(this@RegisterActivity, "Registration successful", Toast.LENGTH_SHORT).show()
-
-                    // Optionally, navigate to another activity after registration
-                    val intent = Intent(this@RegisterActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish() // Finish the registration activity to prevent going back to it
-                } else {
-                    // Read error body only when the response indicates a failure
-                    val errorBody = response.errorBody()?.charStream()
-                    val errorMessage = if (errorBody != null) {
-                        val reader = BufferedReader(errorBody)
-                        reader.use {
-                            it.readText() // Read the error message as a string
+                call.enqueue(object : Callback<User> {
+                    override fun onResponse(call: Call<User>, response: Response<User>) {
+                        if (response.isSuccessful) {
+                            // Handle successful registration
+                            Toast.makeText(this@RegisterActivity, "Registration successful", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            // Handle unsuccessful registration
+                            val errorMessage = response.errorBody()?.string() ?: "Unknown error"
+                            Toast.makeText(this@RegisterActivity, "Registration failed: $errorMessage", Toast.LENGTH_SHORT).show()
                         }
-                    } else {
-                        "Unknown error"
                     }
-                    Toast.makeText(this@RegisterActivity, "Registration failed: $errorMessage", Toast.LENGTH_SHORT).show()
-                }
+
+                    override fun onFailure(call: Call<User>, t: Throwable) {
+                        // Handle network errors
+                        Toast.makeText(this@RegisterActivity, "Registration failed: ${t.message}", Toast.LENGTH_SHORT).show()
+                    }
+                })
             } catch (e: Exception) {
-                // Handle network errors
+                // Handle other exceptions
                 Toast.makeText(this@RegisterActivity, "Registration failed: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
-
-
-
 }
-

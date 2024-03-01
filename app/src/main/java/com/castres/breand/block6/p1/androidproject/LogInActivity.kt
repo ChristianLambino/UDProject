@@ -12,6 +12,9 @@ import com.castres.breand.block6.p1.androidproject.dataclass.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LogInActivity : AppCompatActivity() {
 
@@ -54,49 +57,54 @@ class LogInActivity : AppCompatActivity() {
             if (enteredEmail.isEmpty() || enteredPassword.isEmpty()) {
                 Toast.makeText(this, "Email or Password is empty", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            }else{
-
-            // Perform login operation
-            loginUser(enteredEmail, enteredPassword)}
+            } else {
+                // Perform login operation
+                loginUser()
+            }
         }
     }
 
-    private fun loginUser(email: String, password: String) {
+    private fun loginUser() {
         // Create an instance of the ApiService using RetrofitInstance
         val apiService = RetrofitInstance.api
 
-        // Create a User object with the entered email and password
-        val user = User(email = email, password = password)
+        val requestCall = apiService.userLogin()
 
         // Make the API call in a coroutine
         lifecycleScope.launch(Dispatchers.Main) {
             try {
                 // Call the userLogin function with the user object
                 val response = withContext(Dispatchers.IO) {
-                    apiService.userLogin(user)
-                }
+                    requestCall.enqueue(object : Callback<User> {
+                        override fun onResponse(call: Call<User>, response: Response<User>) {
+                            if (response.isSuccessful) {
+                                // Handle successful login
+                                val loggedInUser = response.body()
+                                // You can use the loggedInUser object here
+                                Toast.makeText(this@LogInActivity, "Login successful", Toast.LENGTH_SHORT).show()
 
-                // Check if the response is successful
-                if (response.isSuccessful) {
-                    //val token = response.body()?.token
-                    Toast.makeText(this@LogInActivity, "Login successful", Toast.LENGTH_SHORT).show()
+                                // Optionally, navigate to another activity after registration
+                                val intent = Intent(this@LogInActivity, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                // Handle login failure (e.g., invalid credentials)
+                                Toast.makeText(this@LogInActivity, "Login failed: ${response.message()}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
 
-                    // Optionally, navigate to another activity after registration
-                    val intent = Intent(this@LogInActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-
-                } else {
-                    // Handle login failure (e.g., invalid credentials)
-                    Toast.makeText(this@LogInActivity, "Login failed: ${response.message()}", Toast.LENGTH_SHORT).show()
+                        override fun onFailure(call: Call<User>, t: Throwable) {
+                            // Handle network or other errors
+                            Toast.makeText(this@LogInActivity, "Login failed: ${t.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    })
                 }
             } catch (e: Exception) {
-                // Handle network or other errors
+                // Handle exceptions
                 Toast.makeText(this@LogInActivity, "Login failed: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
-
 }
 
 
