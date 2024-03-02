@@ -6,4 +6,5 @@
     <color name="custom_orange">#FFFFBB33</color>
     <color name="blue">#0519B9</color>
     <color name="grey">#4E575C</color>
+    <color name="darkGray">#222</color>
 </resources>

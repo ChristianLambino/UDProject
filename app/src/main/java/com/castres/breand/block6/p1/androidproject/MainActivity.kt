@@ -1,13 +1,15 @@
     package com.castres.breand.block6.p1.androidproject
 
+    import android.content.Intent
     import android.os.Bundle
+    import android.widget.TextView
     import androidx.appcompat.app.AppCompatActivity
     import androidx.recyclerview.widget.LinearLayoutManager
     import androidx.recyclerview.widget.LinearSnapHelper
     import androidx.recyclerview.widget.RecyclerView
     import androidx.recyclerview.widget.SnapHelper
 
-    class MainActivity : AppCompatActivity() {
+    class MainActivity : AppCompatActivity(), NewArrClickListener {
 
         //start of new arrivals
 
@@ -33,6 +35,13 @@
             initNewArrivals()
             initComponents()
             initPartnerships()
+
+            val redirectsToNewArrivalsActivity : TextView = findViewById(R.id.textView3)
+
+            redirectsToNewArrivalsActivity.setOnClickListener{
+                val intent = Intent(this@MainActivity, NewArrivalsActivity::class.java)
+                startActivity(intent)
+            }
 
         }
 
@@ -105,6 +114,12 @@
             psList.add(Partnerships(R.drawable.csd_logo, "Item4"))
             psList.add(Partnerships(R.drawable.csd_logo, "Item5"))
             psList.add(Partnerships(R.drawable.csd_logo, "Item6"))
+        }
+
+        override fun onClick(newArrItems: NewArrItems) {
+            val intent = Intent(applicationContext, NewArrivalsDetailActivity::class.java)
+            intent.putExtra(NEW_ARR_ID_EXTRA, newArrItems.id)
+            startActivity(intent)
         }
 
     }
