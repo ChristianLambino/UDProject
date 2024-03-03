@@ -1,12 +1,13 @@
 package com.castres.breand.block6.p1.androidproject
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.castres.breand.block6.p1.androidproject.databinding.ActivityNewArrivalsBinding
 
 
-class NewArrivalsActivity : AppCompatActivity() {
+class NewArrivalsActivity : AppCompatActivity(), NewArrClickListener {
 
     private lateinit var binding: ActivityNewArrivalsBinding
 
@@ -23,6 +24,14 @@ class NewArrivalsActivity : AppCompatActivity() {
             layoutManager = GridLayoutManager(applicationContext, 3)
             adapter = NewArrAdapter(newArrList, newArrActivity )
         }
+
+    }
+
+    override fun onClick(newArrItems: NewArrItems) {
+
+        val intent = Intent(applicationContext, NewArrivalsDetailActivity::class.java)
+        intent.putExtra(NEW_ARR_ID_EXTRA, newArrItems.id)
+        startActivity(intent)
     }
 
     private fun populateNewArrItems()
@@ -127,6 +136,4 @@ class NewArrivalsActivity : AppCompatActivity() {
 
 
     }
-
-
 }

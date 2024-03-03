@@ -12,19 +12,22 @@ class NewArrivalsDetailActivity : AppCompatActivity() {
         binding = ActivityNewArrivalsDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val newArrID = intent.getIntExtra(NEW_ARR_ID_EXTRA, -1)
-        val items = newArrFromID(newArrID)
+        val itemsID = intent.getIntExtra(NEW_ARR_ID_EXTRA, -1)
+        val items = newArrFromID(itemsID)
         if (items != null){
-            binding.cover.setImageResource(items.cover)
+            binding.nadCover.setImageResource(items.cover)
+            binding.nadItemName.text = items.itemName
+            binding.nadPrice.text = items.itemPrice
+            binding.nadDescription.text = items.description
         }
     }
 
-    private fun newArrFromID(newArrID:Int): NewArrivals?{
-        for (items in newArrList)
-        {
-            if (items.id == newArrID)
+    private fun newArrFromID(itemsID: Int): NewArrItems? {
+        for (items in newArrList){
+            if (items.id == itemsID)
                 return items
         }
         return null
+
     }
 }
