@@ -12,7 +12,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 object RetrofitInstance {
     private const val URL = "https://cyberservice-96805b7c1a96.herokuapp.com/"
 
-    // Create an interceptor to add the authentication token to the request headers
+
     private val authTokenInterceptor = Interceptor { chain ->
         val originalRequest = chain.request()
 
