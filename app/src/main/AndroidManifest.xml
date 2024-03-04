@@ -17,11 +17,17 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ComponentsDetailActivity"
+            android:name=".PartnershipsDetailActivity"
             android:exported="true"/>
         <activity
-            android:name=".ComponentsActivity"
+            android:name=".PartnershipsActivity"
             android:exported="true"/>
+        <activity
+            android:name=".ComponentsDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ComponentsActivity"
+            android:exported="true" />
         <activity
             android:name=".LogInActivity"
             android:exported="true">
