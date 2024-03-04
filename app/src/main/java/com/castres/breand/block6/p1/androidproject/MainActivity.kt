@@ -43,6 +43,13 @@
                 startActivity(intent)
             }
 
+            val redirectsToComponentsActivity : TextView = findViewById(R.id.textView4)
+
+            redirectsToComponentsActivity.setOnClickListener {
+                val intent = Intent(this@MainActivity, ComponentsActivity::class.java)
+                startActivity(intent)
+            }
+
         }
 
         private fun initNewArrivals() {

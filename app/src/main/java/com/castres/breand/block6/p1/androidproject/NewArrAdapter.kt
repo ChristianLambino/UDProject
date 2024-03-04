@@ -2,9 +2,11 @@ package com.castres.breand.block6.p1.androidproject
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.*
+import com.castres.breand.block6.p1.androidproject.NewArrClickListener
+import com.castres.breand.block6.p1.androidproject.NewArrItems
 import com.castres.breand.block6.p1.androidproject.databinding.CardcellBinding
+import com.castres.breand.block6.p1.androidproject.NewArrCardViewHolder
 
 class NewArrAdapter (
     private val newArrItems: List<NewArrItems>,

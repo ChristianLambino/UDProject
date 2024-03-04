@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/naCC"
+        android:id="@+id/componentsCV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
@@ -20,14 +20,14 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/ccCover"
+                android:id="@+id/componentsCover"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:src="@drawable/csd_logo" />
 
             <TextView
-                android:id="@+id/ccItemName"
+                android:id="@+id/componentsItemName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -38,7 +38,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ccPrice"
+                android:id="@+id/componentsPrice"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:gravity="center"
@@ -52,4 +52,5 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
 </LinearLayout>

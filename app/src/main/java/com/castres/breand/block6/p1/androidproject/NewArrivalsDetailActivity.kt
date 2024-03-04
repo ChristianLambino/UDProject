@@ -2,7 +2,10 @@ package com.castres.breand.block6.p1.androidproject
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.castres.breand.block6.p1.androidproject.NEW_ARR_ID_EXTRA
+import com.castres.breand.block6.p1.androidproject.NewArrItems
 import com.castres.breand.block6.p1.androidproject.databinding.ActivityNewArrivalsDetailBinding
+import com.castres.breand.block6.p1.androidproject.newArrList
 
 class NewArrivalsDetailActivity : AppCompatActivity() {
 
