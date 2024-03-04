@@ -50,6 +50,13 @@
                 startActivity(intent)
             }
 
+            val redirectsToPartnershipsActivity : TextView = findViewById(R.id.textView5)
+
+            redirectsToPartnershipsActivity.setOnClickListener {
+                val intent = Intent(this@MainActivity, PartnershipsActivity::class.java)
+                startActivity(intent)
+            }
+
         }
 
         private fun initNewArrivals() {
