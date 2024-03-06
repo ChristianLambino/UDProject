@@ -7,11 +7,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
+import com.castres.breand.block6.p1.androidproject.dataclass.LoginResponse
 import com.castres.breand.block6.p1.androidproject.dataclass.User
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -65,45 +62,33 @@ class LogInActivity : AppCompatActivity() {
     }
 
     private fun loginUser() {
-        // Create an instance of the ApiService using RetrofitInstance
-        val apiService = RetrofitInstance.api
+       val user = User()
+        val API = RetrofitInstance.getAPI(this)
 
-        val requestCall = apiService.userLogin()
 
-        // Make the API call in a coroutine
-        lifecycleScope.launch(Dispatchers.Main) {
-            try {
-                // Call the userLogin function with the user object
-                val response = withContext(Dispatchers.IO) {
-                    requestCall.enqueue(object : Callback<User> {
-                        override fun onResponse(call: Call<User>, response: Response<User>) {
-                            if (response.isSuccessful) {
-                                // Handle successful login
-                                val loggedInUser = response.body()
-                                // You can use the loggedInUser object here
-                                Toast.makeText(this@LogInActivity, "Login successful", Toast.LENGTH_SHORT).show()
+        API.userLogin(user).enqueue(object : Callback<LoginResponse>{
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>){
+                val loginResponse= response.body()
+                if (response.isSuccessful && loginResponse != null){
+                    val token= loginResponse.token
+                    RetrofitInstance.saveToken(this@LogInActivity, token)
 
-                                // Optionally, navigate to another activity after registration
-                                val intent = Intent(this@LogInActivity, MainActivity::class.java)
-                                startActivity(intent)
-                                finish()
-                            } else {
-                                // Handle login failure (e.g., invalid credentials)
-                                Toast.makeText(this@LogInActivity, "Login failed: ${response.message()}", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-
-                        override fun onFailure(call: Call<User>, t: Throwable) {
-                            // Handle network or other errors
-                            Toast.makeText(this@LogInActivity, "Login failed: ${t.message}", Toast.LENGTH_SHORT).show()
-                        }
-                    })
+                    Toast.makeText(applicationContext, "Login Successful", Toast.LENGTH_SHORT)
+                        .show()
+                    val intent = Intent(applicationContext,MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
-            } catch (e: Exception) {
-                // Handle exceptions
-                Toast.makeText(this@LogInActivity, "Login failed: ${e.message}", Toast.LENGTH_SHORT).show()
+                else{
+                    Toast.makeText(applicationContext,"Login Failed", Toast.LENGTH_SHORT).show()
+                }
             }
-        }
+
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                Toast.makeText(applicationContext,"Network Error, Please Try Again",Toast.LENGTH_SHORT)
+                    .show()
+            }
+        })
     }
 }
 

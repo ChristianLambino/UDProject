@@ -1,5 +1,6 @@
 package com.castres.breand.block6.p1.androidproject
 
+import android.content.Context
 import com.castres.breand.block6.p1.androidproject.data.model.modeling.API
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
@@ -11,37 +12,85 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 object RetrofitInstance {
     private const val URL = "https://cyberservice-96805b7c1a96.herokuapp.com/"
+    private const val PREF_NAME = "mySharedPreferences"
+    private const val TOKEN_KEY = "token"
 
+    fun saveToken(context: Context, token: String){
+        val prefs=context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE)
+        prefs.edit().putString(TOKEN_KEY, token).apply()
+    }
 
-    private val authTokenInterceptor = Interceptor { chain ->
-        val originalRequest = chain.request()
+    private fun getToken(context: Context):String?{
+        val prefs=context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE)
+        return prefs.getString(TOKEN_KEY,null)
+    }
 
-        val token = String
-        val requestBuilder = originalRequest.newBuilder()
-        if (token != null) {
-            requestBuilder.addHeader("Authorization", "Bearer $token")
+    private class AuthInterceptor(val context: Context) : Interceptor{
+
+        override fun intercept(chain: Interceptor.Chain):okhttp3.Response {
+            val token = getToken(context)
+            val request = chain.request().newBuilder()
+            token?.let {
+                request.addHeader("Authorization", "Bearer $token")
+            }
+           return chain.proceed(request.build())
         }
-
-        val modifiedRequest = requestBuilder.build()
-        chain.proceed(modifiedRequest)
     }
 
-    private val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
+    fun getAPI(context: LogInActivity): API{
+        val loggingInterceptor= HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+        val authInterceptor = AuthInterceptor(context)
+
+        val client=OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(authInterceptor)
+            .build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(URL)
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            .client(client)
+            .build()
+
+        return retrofit.create(API::class.java)
     }
 
-    private val client: OkHttpClient = OkHttpClient.Builder()
-        .addInterceptor(interceptor)
-        .addInterceptor(authTokenInterceptor)
-        .build()
+    fun PostAPI(context: RegisterActivity): API{
+        val loggingInterceptor= HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+        val authInterceptor = AuthInterceptor(context)
 
-    private val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl(URL)
-        .client(client)
-        .addConverterFactory(ScalarsConverterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-        .build()
+        val client=OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(authInterceptor)
+            .build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(URL)
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            .client(client)
+            .build()
 
-    val api: API = retrofit.create(API::class.java)
+        return retrofit.create(API::class.java)
+    }
 
 }
+//private val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+  //  level = HttpLoggingInterceptor.Level.BODY
+//}
+
+//private val client: OkHttpClient = OkHttpClient.Builder()
+  //  .addInterceptor(interceptor)
+    //.build()
+
+//private val retrofit: Retrofit = Retrofit.Builder()
+  //  .baseUrl(RetrofitInstance.URL)
+    //.client(client)
+    //.addConverterFactory(ScalarsConverterFactory.create())
+    //.addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+    //.build()
+
+//val api: API = retrofit.create(API::class.java)

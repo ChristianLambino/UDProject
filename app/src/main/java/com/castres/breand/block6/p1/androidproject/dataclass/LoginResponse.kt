@@ -1,6 +1,9 @@
 package com.castres.breand.block6.p1.androidproject.dataclass
 
+import com.google.gson.annotations.SerializedName
+
 data class LoginResponse(
-    val token: String
+    @SerializedName("token")
+    val token: String,
 )
 

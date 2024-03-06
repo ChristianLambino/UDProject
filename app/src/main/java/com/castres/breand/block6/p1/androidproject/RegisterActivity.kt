@@ -78,8 +78,8 @@ class RegisterActivity : AppCompatActivity() {
     private fun checkEmailAvailability(email: String) {
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val api = RetrofitInstance.api
-                val response = api.checkEmail(email)
+                val API = RetrofitInstance.PostAPI(this@RegisterActivity)
+                val response = API.checkEmail(email)
 
                 if (response.isSuccessful) {
                     // Email is already in use
@@ -100,8 +100,8 @@ class RegisterActivity : AppCompatActivity() {
     private fun registerUser(userData: User) {
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val api = RetrofitInstance.api
-                val response = api.registerUser(userData)
+                val API = RetrofitInstance.PostAPI(this@RegisterActivity)
+                val response = API.registerUser(userData)
 
                 if (response.isSuccessful) {
                     // Handle successful registration
