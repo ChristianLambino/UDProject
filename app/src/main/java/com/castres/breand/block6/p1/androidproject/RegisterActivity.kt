@@ -7,7 +7,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.castres.breand.block6.p1.androidproject.dataclass.User
+import com.castres.breand.block6.p1.androidproject.dataclass.EmailCheckRequest
+import com.castres.breand.block6.p1.androidproject.dataclass.RegistrationRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -22,6 +23,13 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var Address: EditText
     private lateinit var registerButton: Button
     private lateinit var loginTextView: TextView
+
+    private lateinit var email: String
+    private lateinit var name: String
+    private lateinit var password: String
+    private lateinit var confirmPassword: String
+    private lateinit var phone: String
+    private lateinit var address: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,12 +50,12 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         registerButton.setOnClickListener {
-            val email = registerEmail.text.toString()
-            val name = registerName.text.toString()
-            val password = registerPW.text.toString()
-            val confirmPassword = registerConfirmPW.text.toString()
-            val phone = Phone.text.toString()
-            val address = Address.text.toString()
+            email = registerEmail.text.toString()
+            name = registerName.text.toString()
+            password = registerPW.text.toString()
+            confirmPassword = registerConfirmPW.text.toString()
+            phone = Phone.text.toString()
+            address = Address.text.toString()
 
             if (password != confirmPassword) {
                 Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
@@ -71,23 +79,23 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             // Check email availability before registration
-            checkEmailAvailability(email)
+            checkEmailAvailability(EmailCheckRequest(email))
         }
     }
 
-    private fun checkEmailAvailability(email: String) {
+    private fun checkEmailAvailability(emailCheckRequest: EmailCheckRequest) {
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val API = RetrofitInstance.PostAPI(this@RegisterActivity)
-                val response = API.checkEmail(email)
+                val response = API.checkEmail(emailCheckRequest)
 
                 if (response.isSuccessful) {
                     // Email is already in use
                     Toast.makeText(this@RegisterActivity, "Email is already in use", Toast.LENGTH_SHORT).show()
                 } else {
-                    // Email is available, proceed with registration
-                    val userData = User() // You need to fill in the User object with necessary details
-                    registerUser(userData)
+                    // Proceed with registration
+                    val registrationRequest = RegistrationRequest(email, name, password, confirmPassword, phone, address)
+                    registerUser(registrationRequest)
                 }
             } catch (e: Exception) {
                 // Handle network errors or other exceptions
@@ -97,11 +105,11 @@ class RegisterActivity : AppCompatActivity() {
     }
 
 
-    private fun registerUser(userData: User) {
+    private fun registerUser(registrationRequest: RegistrationRequest) {
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val API = RetrofitInstance.PostAPI(this@RegisterActivity)
-                val response = API.registerUser(userData)
+                val response = API.register(registrationRequest)
 
                 if (response.isSuccessful) {
                     // Handle successful registration

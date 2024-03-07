@@ -8,17 +8,12 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 
 object RetrofitInstance {
     private const val URL = "https://cyberservice-96805b7c1a96.herokuapp.com/"
     private const val PREF_NAME = "mySharedPreferences"
     private const val TOKEN_KEY = "token"
 
-    fun saveToken(context: Context, token: String){
-        val prefs=context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE)
-        prefs.edit().putString(TOKEN_KEY, token).apply()
-    }
 
     private fun getToken(context: Context):String?{
         val prefs=context.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE)
@@ -49,7 +44,6 @@ object RetrofitInstance {
             .build()
         val retrofit = Retrofit.Builder()
             .baseUrl(URL)
-            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .client(client)
             .build()
@@ -69,7 +63,6 @@ object RetrofitInstance {
             .build()
         val retrofit = Retrofit.Builder()
             .baseUrl(URL)
-            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .client(client)
             .build()

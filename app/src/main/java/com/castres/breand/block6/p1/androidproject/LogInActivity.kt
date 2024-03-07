@@ -2,16 +2,15 @@ package com.castres.breand.block6.p1.androidproject
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.castres.breand.block6.p1.androidproject.dataclass.LoginResponse
-import com.castres.breand.block6.p1.androidproject.dataclass.User
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import androidx.lifecycle.lifecycleScope
+import com.castres.breand.block6.p1.androidproject.dataclass.LoginRequest
+import kotlinx.coroutines.launch
 
 class LogInActivity : AppCompatActivity() {
 
@@ -20,6 +19,9 @@ class LogInActivity : AppCompatActivity() {
     private lateinit var loginFP: TextView
     private lateinit var loginButton: Button
     private lateinit var loginCA: TextView
+
+    private lateinit var email: String
+    private lateinit var password: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +57,9 @@ class LogInActivity : AppCompatActivity() {
                 Toast.makeText(this, "Email or Password is empty", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             } else {
+                // Assign values to email and password properties
+                email = enteredEmail
+                password = enteredPassword
                 // Perform login operation
                 loginUser()
             }
@@ -62,34 +67,38 @@ class LogInActivity : AppCompatActivity() {
     }
 
     private fun loginUser() {
-       val user = User()
         val API = RetrofitInstance.getAPI(this)
+        val loginRequest = LoginRequest(email, password)
 
-
-        API.userLogin(user).enqueue(object : Callback<LoginResponse>{
-            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>){
-                val loginResponse= response.body()
-                if (response.isSuccessful && loginResponse != null){
-                    val token= loginResponse.token
-                    RetrofitInstance.saveToken(this@LogInActivity, token)
-
-                    Toast.makeText(applicationContext, "Login Successful", Toast.LENGTH_SHORT)
-                        .show()
-                    val intent = Intent(applicationContext,MainActivity::class.java)
+        lifecycleScope.launch {
+            try {
+                val response = API.login(loginRequest)
+                if (response.isSuccessful && response.body() != null) {
+                    val userResponse = response.body()!!
+                    // Handle successful login here, e.g., navigate to another activity
+                    Log.d("LoginActivity", "Login success: ${userResponse.user}")
+                    runOnUiThread {
+                        Toast.makeText(this@LogInActivity, "Successfully logged in", Toast.LENGTH_SHORT).show()
+                    }
+                    // Navigate to MainActivity
+                    val intent = Intent(this@LogInActivity, MainActivity::class.java)
+                    // Optional: Add flags to clear task and start new if needed
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
-                    finish()
+                    finish() // Optional: if you don't want users to return to the login screen when pressing back
+
+                } else {
+                    // Handle login failure, e.g., show error message
+                    Log.e("LoginActivity", "Login failed: ${response.errorBody()?.string()}")
+                    runOnUiThread {
+                        Toast.makeText(this@LogInActivity, "ERROR", Toast.LENGTH_SHORT).show()
+                    }
+
                 }
-                else{
-                    Toast.makeText(applicationContext,"Login Failed", Toast.LENGTH_SHORT).show()
-                }
+            } catch (e: Exception) {
+                Log.e("LoginActivity", "Error fetching user", e)
             }
 
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                Toast.makeText(applicationContext,"Network Error, Please Try Again",Toast.LENGTH_SHORT)
-                    .show()
-            }
-        })
+        }
     }
 }
-
-

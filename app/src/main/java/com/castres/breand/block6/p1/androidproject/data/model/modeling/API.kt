@@ -1,22 +1,28 @@
 package com.castres.breand.block6.p1.androidproject.data.model.modeling
 
+import com.castres.breand.block6.p1.androidproject.dataclass.EmailCheckRequest
+import com.castres.breand.block6.p1.androidproject.dataclass.LoginRequest
 import com.castres.breand.block6.p1.androidproject.dataclass.LoginResponse
-import com.castres.breand.block6.p1.androidproject.dataclass.User
-import retrofit2.Call
+import com.castres.breand.block6.p1.androidproject.dataclass.RegistrationRequest
+import com.castres.breand.block6.p1.androidproject.dataclass.UserResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface API {
 
-    @POST("registration")
-    suspend fun registerUser(@Body user: User): Response<User>
+    @Headers("Accept: application/json") // Specifies the Accept header
+    @POST("/registration") // Adjust this endpoint to match your API.
+    suspend fun register(@Body registrationRequest: RegistrationRequest): Response<UserResponse>
 
-    @POST("users")
-    fun userLogin(@Body user: User): Call<LoginResponse>
+    @Headers("Accept: application/json")
+    @POST("/login")
+    suspend fun login(@Body credentials: LoginRequest): Response<LoginResponse>
 
-    @POST("checkEmail")
-    suspend fun checkEmail(@Query("email") email: String): Response<LoginResponse>
+    @Headers("Accept: application/json")
+    @POST("/registration")
+    suspend fun checkEmail(@Query("email") emailCheckRequest: EmailCheckRequest): Response<UserResponse>
 }
 
