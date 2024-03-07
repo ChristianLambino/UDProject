@@ -43,8 +43,20 @@
     <TextView
         android:id="@+id/componentsDetailDescription"
         android:layout_width="match_parent"
-        android:layout_height="211dp"
+        android:layout_height="151dp"
         android:layout_marginTop="10dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:text="Lorem ispum" />
+
+    <ImageView
+        android:id="@+id/componentsDetailADC"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:clickable="true"
+        android:onClick="redirectToCart"
+        app:srcCompat="@drawable/add_cart"
+        android:contentDescription="string/add_cart_description"/>
 
 </LinearLayout>

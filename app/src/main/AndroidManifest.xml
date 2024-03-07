@@ -17,11 +17,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".PartnershipsDetailActivity"
+            android:name=".AddToCartActivity"
             android:exported="true"/>
         <activity
+            android:name=".PartnershipsDetailActivity"
+            android:exported="true" />
+        <activity
             android:name=".PartnershipsActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".ComponentsDetailActivity"
             android:exported="true" />

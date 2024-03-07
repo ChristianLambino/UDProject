@@ -9,6 +9,7 @@ class ComponentsItems (
     var componentsItemName: String,
     var componentsPrice: String,
     var componentsDescription: String,
+    var componentsAddToCart : Int,
     val id: Int? = componentsList.size
 
 )

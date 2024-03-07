@@ -9,5 +9,6 @@ class PartnershipsItems (
     var partnershipsItemName: String,
     var partnershipsPrice: String,
     var partnershipsDescription: String,
+    var partnershipsAddToCart: Int,
     val id: Int = partnershipsList.size
 )
