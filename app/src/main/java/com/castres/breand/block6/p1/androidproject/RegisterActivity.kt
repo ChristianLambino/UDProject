@@ -11,9 +11,6 @@ import com.castres.breand.block6.p1.androidproject.dataclass.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -56,43 +53,72 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+            if (email.isEmpty()) {
+                Toast.makeText(this, "Email is Required", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (name.isEmpty()) {
+                Toast.makeText(this, "Name is Required", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (phone.isEmpty()) {
+                Toast.makeText(this, "Phone is Required", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (address.isEmpty()) {
+                Toast.makeText(this, "Address is Required", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-            // Register the user using Retrofit
-            val userData = User()
-            registerUser(userData)
+            // Check email availability before registration
+            checkEmailAvailability(email)
         }
     }
+
+    private fun checkEmailAvailability(email: String) {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val API = RetrofitInstance.PostAPI(this@RegisterActivity)
+                val response = API.checkEmail(email)
+
+                if (response.isSuccessful) {
+                    // Email is already in use
+                    Toast.makeText(this@RegisterActivity, "Email is already in use", Toast.LENGTH_SHORT).show()
+                } else {
+                    // Email is available, proceed with registration
+                    val userData = User() // You need to fill in the User object with necessary details
+                    registerUser(userData)
+                }
+            } catch (e: Exception) {
+                // Handle network errors or other exceptions
+                Toast.makeText(this@RegisterActivity, "Failed to check email availability: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 
     private fun registerUser(userData: User) {
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val api = RetrofitInstance.api
-                val call = api.registerUser(userData)
+                val API = RetrofitInstance.PostAPI(this@RegisterActivity)
+                val response = API.registerUser(userData)
 
-                call.enqueue(object : Callback<User> {
-                    override fun onResponse(call: Call<User>, response: Response<User>) {
-                        if (response.isSuccessful) {
-                            // Handle successful registration
-                            Toast.makeText(this@RegisterActivity, "Registration successful", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this@RegisterActivity, MainActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        } else {
-                            // Handle unsuccessful registration
-                            val errorMessage = response.errorBody()?.string() ?: "Unknown error"
-                            Toast.makeText(this@RegisterActivity, "Registration failed: $errorMessage", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-
-                    override fun onFailure(call: Call<User>, t: Throwable) {
-                        // Handle network errors
-                        Toast.makeText(this@RegisterActivity, "Registration failed: ${t.message}", Toast.LENGTH_SHORT).show()
-                    }
-                })
+                if (response.isSuccessful) {
+                    // Handle successful registration
+                    Toast.makeText(this@RegisterActivity, "Registration successful", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    // Handle unsuccessful registration
+                    val errorMessage = response.errorBody()?.string() ?: "Unknown error"
+                    Toast.makeText(this@RegisterActivity, "Registration failed: $errorMessage", Toast.LENGTH_SHORT).show()
+                }
             } catch (e: Exception) {
                 // Handle other exceptions
                 Toast.makeText(this@RegisterActivity, "Registration failed: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
 }
