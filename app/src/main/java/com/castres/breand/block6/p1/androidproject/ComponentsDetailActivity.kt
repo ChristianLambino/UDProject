@@ -1,9 +1,9 @@
 package com.castres.breand.block6.p1.androidproject
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.view.KeyEventDispatcher.Component
-import com.castres.breand.block6.p1.androidproject.databinding.ActivityComponentsBinding
+import android.view.View
 import com.castres.breand.block6.p1.androidproject.databinding.ActivityComponentsDetailBinding
 
 class ComponentsDetailActivity : AppCompatActivity() {
@@ -15,6 +15,8 @@ class ComponentsDetailActivity : AppCompatActivity() {
         binding = ActivityComponentsDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         val componentsID = intent.getIntExtra(COMPONENTS_ID_EXTRA, -1)
         val component = componentFromID(componentsID)
         if (component != null)
@@ -23,8 +25,19 @@ class ComponentsDetailActivity : AppCompatActivity() {
            binding.componentsDetailItemName.text = component.componentsItemName
            binding.componentsDetailPrice.text = component.componentsPrice
            binding.componentsDetailDescription.text = component.componentsDescription
+           binding.componentsDetailADC.setImageResource(component.componentsAddToCart)
+
+            //redirects to add to cart activity
+           binding.componentsDetailADC.setOnClickListener{
+               redirectToCart()
+           }
 
         }
+    }
+
+    private fun redirectToCart(){
+        val intent = Intent(this,AddToCartActivity::class.java)
+        startActivity(intent)
     }
 
     private fun componentFromID(componentsID: Int): ComponentsItems?

@@ -36,26 +36,28 @@
             initComponents()
             initPartnerships()
 
-            val redirectsToNewArrivalsActivity : TextView = findViewById(R.id.textView3)
+            val redirectsToNewArrivalsActivity : TextView = findViewById(R.id.tvNewArrivals)
 
             redirectsToNewArrivalsActivity.setOnClickListener{
                 val intent = Intent(this@MainActivity, NewArrivalsActivity::class.java)
                 startActivity(intent)
             }
 
-            val redirectsToComponentsActivity : TextView = findViewById(R.id.textView4)
+            val redirectsToComponentsActivity : TextView = findViewById(R.id.tvComponents)
 
             redirectsToComponentsActivity.setOnClickListener {
                 val intent = Intent(this@MainActivity, ComponentsActivity::class.java)
                 startActivity(intent)
             }
 
-            val redirectsToPartnershipsActivity : TextView = findViewById(R.id.textView5)
+            val redirectsToPartnershipsActivity : TextView = findViewById(R.id.tvPartnerships)
 
             redirectsToPartnershipsActivity.setOnClickListener {
                 val intent = Intent(this@MainActivity, PartnershipsActivity::class.java)
                 startActivity(intent)
             }
+
+
 
         }
 
@@ -134,6 +136,7 @@
             val intent = Intent(applicationContext, NewArrivalsDetailActivity::class.java)
             intent.putExtra(NEW_ARR_ID_EXTRA, newArrItems.id)
             startActivity(intent)
+
         }
 
     }

@@ -9,5 +9,6 @@ class NewArrItems(
     var itemName: String,
     var itemPrice: String,
     var description: String,
+    var addToCart: Int,
     val id: Int? = newArrList.size
 )

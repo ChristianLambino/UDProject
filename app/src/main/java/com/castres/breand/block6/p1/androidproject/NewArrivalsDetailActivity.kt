@@ -1,5 +1,6 @@
 package com.castres.breand.block6.p1.androidproject
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.castres.breand.block6.p1.androidproject.NEW_ARR_ID_EXTRA
@@ -22,7 +23,17 @@ class NewArrivalsDetailActivity : AppCompatActivity() {
             binding.nadItemName.text = items.itemName
             binding.nadPrice.text = items.itemPrice
             binding.nadDescription.text = items.description
+            binding.nadDetailADC.setImageResource(items.addToCart)
+
+            binding.nadDetailADC.setOnClickListener{
+                redirectToCart()
+            }
         }
+    }
+
+    private fun redirectToCart(){
+        val intent = Intent(this, AddToCartActivity::class.java)
+        startActivity(intent)
     }
 
     private fun newArrFromID(itemsID: Int): NewArrItems? {
