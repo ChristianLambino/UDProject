@@ -10,7 +10,7 @@ data class RegistrationRequest(
     val email: String,
     val name: String,
     val password: String,
-    val password_confirmation: String, // Add this line
+    val password_confirmation: String,
     val phone: String,
     val address: String
 )

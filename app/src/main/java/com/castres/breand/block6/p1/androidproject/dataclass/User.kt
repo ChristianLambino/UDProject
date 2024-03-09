@@ -8,7 +8,7 @@ data class User(
 data class Token(
     val name: String,
     val abilities: List<String>,
-    val expires_at: Any?, // You may replace Any? with the appropriate type for expires_at
+    val expires_at: Any?,
     val tokenable_id: Int,
     val tokenable_type: String,
     val updated_at: String,
