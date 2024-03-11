@@ -1,8 +1,11 @@
 package com.castres.breand.block6.p1.androidproject
 
-import android.content.Intent
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import android.widget.Toast
 import com.castres.breand.block6.p1.androidproject.databinding.ActivityPartnershipsDetailBinding
 
@@ -28,8 +31,25 @@ class PartnershipsDetailActivity : AppCompatActivity() {
             binding.partnershipsDetailADC.setOnClickListener {
                 // Show a Toast message when clicked
                 Toast.makeText(this, "Item Added To Cart", Toast.LENGTH_SHORT).show()
+
+                bounceAnimation(binding.partnershipsDetailADC)
             }
         }
+    }
+
+    private fun bounceAnimation(view: View){
+        val bounceAnimation = ScaleAnimation(
+            1.0f, 1.2f,  // Start and end values for the X-axis scaling
+            1.0f, 1.2f,  // Start and end values for the Y-axis scaling
+            Animation.RELATIVE_TO_SELF, 0.5f,  // Pivot point of X scaling
+            Animation.RELATIVE_TO_SELF, 0.5f   // Pivot point of Y scaling
+        )
+
+        bounceAnimation.duration = 300 // Duration of the animation in milliseconds
+        bounceAnimation.repeatMode = Animation.REVERSE // Reverse the animation when it ends
+        bounceAnimation.repeatCount = 1 // Number of times to repeat the animation
+
+        view.startAnimation(bounceAnimation)
     }
 
 
