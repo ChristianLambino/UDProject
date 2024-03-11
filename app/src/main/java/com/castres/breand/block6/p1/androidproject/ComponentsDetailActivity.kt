@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.castres.breand.block6.p1.androidproject.databinding.ActivityComponentsDetailBinding
 
 class ComponentsDetailActivity : AppCompatActivity() {
@@ -27,17 +28,13 @@ class ComponentsDetailActivity : AppCompatActivity() {
            binding.componentsDetailDescription.text = component.componentsDescription
            binding.componentsDetailADC.setImageResource(component.componentsAddToCart)
 
-            //redirects to add to cart activity
-           binding.componentsDetailADC.setOnClickListener{
-               redirectToCart()
-           }
+            // Add click listener to componentsDetailADC
+            binding.componentsDetailADC.setOnClickListener {
+                // Show a Toast message when clicked
+                Toast.makeText(this, "Item Added To Cart", Toast.LENGTH_SHORT).show()
+            }
 
         }
-    }
-
-    private fun redirectToCart(){
-        val intent = Intent(this,AddToCartActivity::class.java)
-        startActivity(intent)
     }
 
     private fun componentFromID(componentsID: Int): ComponentsItems?

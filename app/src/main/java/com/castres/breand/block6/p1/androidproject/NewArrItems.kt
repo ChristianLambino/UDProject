@@ -1,5 +1,7 @@
 package com.castres.breand.block6.p1.androidproject
 
+import java.io.Serializable
+
 var newArrList = mutableListOf<NewArrItems>()
 
 val NEW_ARR_ID_EXTRA = "newArrExtra"
@@ -11,4 +13,6 @@ class NewArrItems(
     var description: String,
     var addToCart: Int,
     val id: Int? = newArrList.size
-)
+
+
+) : Serializable

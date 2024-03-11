@@ -78,6 +78,9 @@ android {
         debugImplementation("androidx.compose.ui:ui-tooling")
         debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+        //viewpager
+        implementation("com.github.bumptech.glide:glide:4.16.0")
+
 
 
 
@@ -88,4 +91,6 @@ android {
         implementation("com.squareup.retrofit2:converter-gson:2.9.0")
         implementation("com.squareup.okhttp3:okhttp:4.11.0")
         implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+
+
     }

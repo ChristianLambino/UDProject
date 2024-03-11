@@ -2,6 +2,9 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="AddToCartActivity">
+        <State />
+      </entry>
       <entry key="ComponentsActivity">
         <State />
       </entry>
@@ -9,9 +12,6 @@
         <State />
       </entry>
       <entry key="NewArrivalsActivity">
-        <State />
-      </entry>
-      <entry key="NewArrivalsDetailActivity">
         <State />
       </entry>
       <entry key="PartnershipsActivity">

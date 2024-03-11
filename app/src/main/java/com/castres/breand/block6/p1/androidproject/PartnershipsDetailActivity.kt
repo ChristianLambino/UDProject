@@ -3,6 +3,7 @@ package com.castres.breand.block6.p1.androidproject
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.castres.breand.block6.p1.androidproject.databinding.ActivityPartnershipsDetailBinding
 
 class PartnershipsDetailActivity : AppCompatActivity() {
@@ -23,16 +24,14 @@ class PartnershipsDetailActivity : AppCompatActivity() {
             binding.partnershipsDetailDescription.text = partnership.partnershipsDescription
             binding.partnershipsDetailADC.setImageResource(partnership.partnershipsAddToCart)
 
-            binding.partnershipsDetailADC.setOnClickListener{
-                redirectToCart()
+            // Add click listener to componentsDetailADC
+            binding.partnershipsDetailADC.setOnClickListener {
+                // Show a Toast message when clicked
+                Toast.makeText(this, "Item Added To Cart", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun redirectToCart(){
-        val intent = Intent(this, AddToCartActivity::class.java)
-        startActivity(intent)
-    }
 
     private fun partnershipsFromID(partnershipsID: Int): PartnershipsItems? {
 

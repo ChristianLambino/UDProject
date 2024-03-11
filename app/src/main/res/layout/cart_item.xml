@@ -1,0 +1,38 @@
+<!-- item_cart.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/imageViewProduct"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/csd_logo" />
+
+    <TextView
+        android:id="@+id/textViewProductName"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="Product Name"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textViewProductPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$0.00"
+        android:textSize="16sp" />
+
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="@string/delete_button"
+        android:src="@android:drawable/ic_menu_delete" />
+
+</LinearLayout>

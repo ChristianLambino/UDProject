@@ -23,6 +23,7 @@ class NewArrAdapter (
 
     override fun onBindViewHolder(holder: NewArrCardViewHolder, position: Int)
     {
+
        holder.bindNewArrItems(newArrItems[position])
     }
     override fun getItemCount(): Int = newArrItems.size
