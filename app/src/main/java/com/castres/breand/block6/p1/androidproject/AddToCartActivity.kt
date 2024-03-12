@@ -1,12 +1,15 @@
 package com.castres.breand.block6.p1.androidproject
 
+// AddToCartActivity.kt
+
+// AddToCartActivity.kt
+
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.castres.breand.block6.p1.androidproject.databinding.ActivityAddToCartBinding
-
 class AddToCartActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddToCartBinding
@@ -37,5 +40,4 @@ class AddToCartActivity : AppCompatActivity() {
         startActivity(intent)
     }
 }
-
 
