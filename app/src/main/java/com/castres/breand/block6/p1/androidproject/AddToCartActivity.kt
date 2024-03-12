@@ -1,10 +1,8 @@
 package com.castres.breand.block6.p1.androidproject
 
-// AddToCartActivity.kt
-
-// AddToCartActivity.kt
-
+import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.castres.breand.block6.p1.androidproject.databinding.ActivityAddToCartBinding
@@ -20,10 +18,7 @@ class AddToCartActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Create a RecyclerView adapter and set it up
-        cartItemAdapter = CartItemAdapter(CartManager.getCartItems()) { position ->
-            // Handle delete item action here
-            CartManager.removeCartItem(position)
-        }
+        cartItemAdapter = CartItemAdapter(CartManager.getCartItems(), ::onDeleteClickListener, ::onCartItemClick)
 
         binding.cartRecyclerView.adapter = cartItemAdapter
         binding.cartRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -31,5 +26,16 @@ class AddToCartActivity : AppCompatActivity() {
         // Set the adapter reference in CartManager
         CartManager.setAdapter(cartItemAdapter)
     }
+
+    private fun onDeleteClickListener(position: Int) {
+        CartManager.removeCartItem(position)
+    }
+
+    private fun onCartItemClick(cartItem: CartItem) {
+        val intent = Intent(this, AddToCartDetailActivity::class.java)
+        intent.putExtra(AddToCartDetailActivity.CART_ITEM_EXTRA, cartItem as Parcelable)
+        startActivity(intent)
+    }
 }
+
 

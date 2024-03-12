@@ -33,7 +33,6 @@ class ComponentsDetailActivity : AppCompatActivity() {
             // Add click listener to componentsDetailADC
             binding.componentsDetailADC.setOnClickListener {
 
-
                 // Add the selected item to the cart and show a Toast message
                 CartManager.addItemToCart(component)
                 val intent = Intent(this, AddToCartActivity::class.java)
@@ -74,6 +73,5 @@ class ComponentsDetailActivity : AppCompatActivity() {
         return null
 
     }
-
 
 }

@@ -1,12 +1,41 @@
 package com.castres.breand.block6.p1.androidproject
 
 // CartItem.kt
+import android.os.Parcel
+import android.os.Parcelable
+
 data class CartItem(
     val productImageResId: Int,
     val productName: String,
     val productPrice: String,
-)
+) : Parcelable {
 
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readString()!!,
+        parcel.readString()!!
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(productImageResId)
+        parcel.writeString(productName)
+        parcel.writeString(productPrice)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<CartItem> {
+        override fun createFromParcel(parcel: Parcel): CartItem {
+            return CartItem(parcel)
+        }
+
+        override fun newArray(size: Int): Array<CartItem?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
 
 
 
