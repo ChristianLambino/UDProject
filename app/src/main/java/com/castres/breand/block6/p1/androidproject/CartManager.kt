@@ -12,10 +12,10 @@ object CartManager {
 
     fun addItemToCart(item: ComponentsItems) {
         val cartItem = CartItem(
+            productImageResId = item.componentsCover,
             productName = item.componentsItemName,
             productPrice = item.componentsPrice,
-            productImageResId = item.componentsCover
-            // Add other necessary fields
+            productDescription = item.componentsDescription
         )
         cartItems.add(cartItem)
         updateAdapter()
@@ -37,7 +37,6 @@ object CartManager {
         cartItemAdapter?.updateItems(cartItems.toList())
     }
 }
-
 
 
 

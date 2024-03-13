@@ -13,6 +13,3 @@ class ComponentsItems (
     val id: Int? = componentsList.size
 
 )
-
-
-
