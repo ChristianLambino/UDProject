@@ -1,7 +1,6 @@
 package com.castres.breand.block6.p1.androidproject
 
 import androidx.recyclerview.widget.RecyclerView
-import com.castres.breand.block6.p1.androidproject.databinding.CardcellBinding
 import com.castres.breand.block6.p1.androidproject.databinding.ComponentsCardcellBinding
 
 class ComponentsCardViewHolder (

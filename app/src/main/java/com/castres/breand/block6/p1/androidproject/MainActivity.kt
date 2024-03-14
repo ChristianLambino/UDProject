@@ -15,7 +15,7 @@
     import androidx.recyclerview.widget.SnapHelper
     import com.google.android.material.navigation.NavigationView
 
-    class MainActivity : AppCompatActivity(), NewArrClickListener {
+    class MainActivity : AppCompatActivity(){
 
         //start of new arrivals
         private lateinit var drawerLayout: DrawerLayout
@@ -74,7 +74,6 @@
                 true
             }
 
-
             initNewArrivals()
             initComponents()
             initPartnerships()
@@ -89,13 +88,6 @@
                 startActivity(Intent(this, AddToCartActivity::class.java))
             }
 
-            val redirectsToNewArrivalsActivity : TextView = findViewById(R.id.tvNewArrivals)
-
-            redirectsToNewArrivalsActivity.setOnClickListener{
-                val intent = Intent(this@MainActivity, NewArrivalsActivity::class.java)
-                startActivity(intent)
-            }
-
             val redirectsToComponentsActivity : TextView = findViewById(R.id.tvComponents)
 
             redirectsToComponentsActivity.setOnClickListener {
@@ -105,10 +97,6 @@
 
             val redirectsToPartnershipsActivity : TextView = findViewById(R.id.tvPartnerships)
 
-            redirectsToPartnershipsActivity.setOnClickListener {
-                val intent = Intent(this@MainActivity, PartnershipsActivity::class.java)
-                startActivity(intent)
-            }
 
         }
 
@@ -148,12 +136,12 @@
 
 
         private fun addDataToNewArrivalsList() {
-            newArrivalsList.add(NewArrivals(R.drawable.csd_logo, "Item1"))
-            newArrivalsList.add(NewArrivals(R.drawable.csd_logo, "Item2"))
-            newArrivalsList.add(NewArrivals(R.drawable.csd_logo, "Item3"))
-            newArrivalsList.add(NewArrivals(R.drawable.csd_logo, "Item4"))
-            newArrivalsList.add(NewArrivals(R.drawable.csd_logo, "Item5"))
-            newArrivalsList.add(NewArrivals(R.drawable.csd_logo, "Item6"))
+            newArrivalsList.add(NewArrivals(R.drawable.csd_logo, "Item 1"))
+            newArrivalsList.add(NewArrivals(R.drawable.csd_logo, "Item 2"))
+            newArrivalsList.add(NewArrivals(R.drawable.csd_logo, "Item 3"))
+            newArrivalsList.add(NewArrivals(R.drawable.csd_logo, "Item 4"))
+            newArrivalsList.add(NewArrivals(R.drawable.csd_logo, "Item 5"))
+            newArrivalsList.add(NewArrivals(R.drawable.csd_logo, "Item 6"))
         }
         private fun initComponents() {
             recyclerView1 = findViewById(R.id.recyclerView2)
@@ -202,11 +190,5 @@
             psList.add(Partnerships(R.drawable.csd_logo, "Item6"))
         }
 
-        override fun onClick(newArrItems: NewArrItems) {
-            val intent = Intent(applicationContext, NewArrivalsDetailActivity::class.java)
-            intent.putExtra(NEW_ARR_ID_EXTRA, newArrItems.id)
-            startActivity(intent)
-
-        }
 
     }
