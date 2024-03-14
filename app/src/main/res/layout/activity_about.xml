@@ -6,4 +6,94 @@
     android:layout_height="match_parent"
     tools:context=".AboutActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="360dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="52dp"
+        android:text="Cyber Service Den"
+        android:textColor="@color/black"
+        android:textSize="41dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.686"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="317dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="28dp"
+        android:text="Welcome to the ultimate tech paradise where your PC dreams come true! Dive into a world of cutting-edge components and unleash the power of your rig like never before."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="318dp"
+        android:layout_height="93dp"
+        android:layout_marginTop="124dp"
+        android:text="At CSD, we're obsessed with performance, quality, and pushing the boundaries of what's possible in the PC world. Join us on this epic journey to elevate your gaming and work experience to new heights!"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="319dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="232dp"
+        android:text="Explore our vast selection of PC parts, from processors to graphics cards, and experience the thrill of building your dream machine with us."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="94dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="324dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.249"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/csd_logo" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="94dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="464dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.744"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/csd_logo" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="94dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="464dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.249"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/csd_logo" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="94dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="324dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.744"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/csd_logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -78,10 +78,6 @@
             initComponents()
             initPartnerships()
 
-            //val redirectsToNavigationDrawerActivity: ImageView = findViewById(R.id.optionsIcon)
-            //redirectsToNavigationDrawerActivity.setOnClickListener{
-                //startActivity(Intent(this, NavigationDrawerActivity::class.java ))
-            //}
 
             val redirectsToAddToCartActivity: ImageView = findViewById(R.id.cartIcon)
             redirectsToAddToCartActivity.setOnClickListener{
@@ -94,9 +90,6 @@
                 val intent = Intent(this@MainActivity, ComponentsActivity::class.java)
                 startActivity(intent)
             }
-
-            val redirectsToPartnershipsActivity : TextView = findViewById(R.id.tvPartnerships)
-
 
         }
 

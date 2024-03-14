@@ -22,7 +22,7 @@
             android:exported="false" />
         <activity
             android:name=".AboutActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".AppointmentsActivity"
             android:exported="false" />
@@ -31,12 +31,6 @@
             android:exported="true" />
         <activity
             android:name=".AddToCartActivity"
-            android:exported="true" />
-        <activity
-            android:name=".PartnershipsDetailActivity"
-            android:exported="true" />
-        <activity
-            android:name=".PartnershipsActivity"
             android:exported="true" />
         <activity
             android:name=".ComponentsDetailActivity"
@@ -59,12 +53,6 @@
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
-        <activity
-            android:name=".NewArrivalsActivity"
-            android:exported="true" />
-        <activity
-            android:name=".NewArrivalsDetailActivity"
-            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:label=""

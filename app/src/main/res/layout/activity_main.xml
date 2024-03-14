@@ -21,11 +21,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        <!-- First RecyclerView Section -->
+            <!-- First RecyclerView Section -->
 
-        <!-- Second RecyclerView Section -->
+            <!-- Second RecyclerView Section -->
 
-        <!-- Third RecyclerView Section -->
+            <!-- Third RecyclerView Section -->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -131,7 +131,7 @@
                 />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.cardview.widget.CardView>
