@@ -5,9 +5,6 @@
       <entry key="AddToCartActivity">
         <State />
       </entry>
-      <entry key="ComponentsActivity">
-        <State />
-      </entry>
       <entry key="MainActivity">
         <State>
           <targetSelectedWithDropDown>
@@ -23,6 +20,9 @@
           </targetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-03-13T17:02:44.580296300Z" />
         </State>
+      </entry>
+      <entry key="NavigationDrawerActivity">
+        <State />
       </entry>
       <entry key="NewArrivalsActivity">
         <State />

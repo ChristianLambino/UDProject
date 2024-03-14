@@ -4,16 +4,25 @@
     import android.os.Bundle
     import android.widget.ImageView
     import android.widget.TextView
+    import android.widget.Toolbar
+    import androidx.appcompat.app.ActionBarDrawerToggle
+    import androidx.appcompat.app.AlertDialog
     import androidx.appcompat.app.AppCompatActivity
+    import androidx.drawerlayout.widget.DrawerLayout
     import androidx.recyclerview.widget.LinearLayoutManager
     import androidx.recyclerview.widget.LinearSnapHelper
     import androidx.recyclerview.widget.RecyclerView
     import androidx.recyclerview.widget.SnapHelper
+    import com.google.android.material.navigation.NavigationView
 
     class MainActivity : AppCompatActivity(), NewArrClickListener {
 
         //start of new arrivals
+        private lateinit var drawerLayout: DrawerLayout
+        private lateinit var navigationView: NavigationView
+        private lateinit var toolbar: androidx.appcompat.widget.Toolbar
 
+        //start of new arrivals
         private lateinit var recyclerView: RecyclerView
         private lateinit var newArrivalsList: ArrayList<NewArrivals>
         private lateinit var newArrivalsAdapter :NewArrivalsAdapter
@@ -33,9 +42,45 @@
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_main)
 
+            // Initialize views
+            drawerLayout = findViewById(R.id.drawer_layout)
+            navigationView = findViewById(R.id.nav_view)
+            toolbar = findViewById(R.id.toolbar)
+
+            // Set toolbar as action bar
+            setSupportActionBar(toolbar)
+
+            // Set up drawer toggle
+            val toggle = ActionBarDrawerToggle(
+                this, drawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            )
+            drawerLayout.addDrawerListener(toggle)
+            toggle.syncState()
+
+            // Set navigation item click listener
+            navigationView.setNavigationItemSelectedListener { menuItem ->
+                // Handle navigation item clicks
+                when (menuItem.itemId) {
+                    R.id.nav_components -> startActivity(Intent(this, ComponentsActivity::class.java))
+                    R.id.nav_appointments -> startActivity(Intent(this, AppointmentsActivity::class.java))
+                    R.id.nav_about -> startActivity(Intent(this, AboutActivity::class.java))
+                    R.id.nav_contacts -> startActivity(Intent(this, ContactsActivity::class.java))
+                    R.id.nav_logout -> showLogoutDialog()
+                }
+                // Close the drawer after handling the item click
+                drawerLayout.closeDrawers()
+                true
+            }
+
             initNewArrivals()
             initComponents()
             initPartnerships()
+
+            //val redirectsToNavigationDrawerActivity: ImageView = findViewById(R.id.optionsIcon)
+            //redirectsToNavigationDrawerActivity.setOnClickListener{
+                //startActivity(Intent(this, NavigationDrawerActivity::class.java ))
+            //}
 
             val redirectsToAddToCartActivity: ImageView = findViewById(R.id.cartIcon)
             redirectsToAddToCartActivity.setOnClickListener{
@@ -63,9 +108,25 @@
                 startActivity(intent)
             }
 
-
-
         }
+
+        // Function to show logout confirmation dialog
+        private fun showLogoutDialog() {
+            AlertDialog.Builder(this)
+                .setTitle("Logout")
+                .setMessage("Are you sure you want to logout?")
+                .setPositiveButton("Yes") { dialog, _ ->
+                    // Implement logout functionality here
+                    dialog.dismiss()
+                }
+                .setNegativeButton("No") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
+
+
+
 
         private fun initNewArrivals() {
             // new arrivals
