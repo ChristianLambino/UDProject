@@ -35,8 +35,6 @@ class ComponentsDetailActivity : AppCompatActivity() {
 
                 // Add the selected item to the cart and show a Toast message
                 CartManager.addItemToCart(component)
-                val intent = Intent(this, AddToCartActivity::class.java)
-                startActivity(intent)
                 // Show a Toast message when clicked
                 Toast.makeText(this, "Item Added To Cart", Toast.LENGTH_SHORT).show()
 

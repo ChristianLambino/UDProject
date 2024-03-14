@@ -16,6 +16,8 @@ class AddToCartActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddToCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
         // Create a RecyclerView adapter and set it up
         cartItemAdapter = CartItemAdapter(CartManager.getCartItems(), ::onDeleteClickListener, ::onCartItemClick)
         binding.cartRecyclerView.adapter = cartItemAdapter

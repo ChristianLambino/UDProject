@@ -2,6 +2,7 @@
 
     import android.content.Intent
     import android.os.Bundle
+    import android.widget.ImageView
     import android.widget.TextView
     import androidx.appcompat.app.AppCompatActivity
     import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,6 +36,11 @@
             initNewArrivals()
             initComponents()
             initPartnerships()
+
+            val redirectsToAddToCartActivity: ImageView = findViewById(R.id.cartIcon)
+            redirectsToAddToCartActivity.setOnClickListener{
+                startActivity(Intent(this, AddToCartActivity::class.java))
+            }
 
             val redirectsToNewArrivalsActivity : TextView = findViewById(R.id.tvNewArrivals)
 

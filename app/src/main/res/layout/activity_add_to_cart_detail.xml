@@ -34,11 +34,14 @@
     <TextView
         android:id="@+id/textViewProductDescription"
         android:layout_width="378dp"
-        android:layout_height="131dp"
+        android:layout_height="94dp"
         android:layout_below="@id/textViewProductPriceDetail"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         android:text="Product Description"
         android:textSize="16sp" />
+
+    <!-- Change the text color here -->
+
 
     <NumberPicker
         android:id="@+id/numberPickerQuantity"
@@ -46,17 +49,36 @@
         android:layout_height="121dp"
         android:layout_below="@id/textViewProductDescription"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="2dp"
         android:max="10"
         android:min="1"
+        android:textColor="@android:color/black"
         android:value="1" />
+
+    <EditText
+        android:id="@+id/editTextAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/numberPickerQuantity"
+        android:layout_marginTop="8dp"
+        android:hint="Enter Address"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/editTextPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextAddress"
+        android:layout_marginTop="16dp"
+        android:hint="Enter Phone Number"
+        android:textSize="16sp"/>
 
     <Button
         android:id="@+id/buttonOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/numberPickerQuantity"
-        android:layout_marginTop="34dp"
+        android:layout_below="@id/editTextPhoneNumber"
+        android:layout_marginTop="16dp"
         android:text="Order Now" />
 
 </RelativeLayout>
