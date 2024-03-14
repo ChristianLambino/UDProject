@@ -50,6 +50,7 @@
             // Set toolbar as action bar
             setSupportActionBar(toolbar)
 
+
             // Set up drawer toggle
             val toggle = ActionBarDrawerToggle(
                 this, drawerLayout, toolbar,
@@ -72,6 +73,7 @@
                 drawerLayout.closeDrawers()
                 true
             }
+
 
             initNewArrivals()
             initComponents()
@@ -116,8 +118,9 @@
                 .setTitle("Logout")
                 .setMessage("Are you sure you want to logout?")
                 .setPositiveButton("Yes") { dialog, _ ->
-                    // Implement logout functionality here
-                    dialog.dismiss()
+                    val intent = Intent(this, LogInActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
                 }
                 .setNegativeButton("No") { dialog, _ ->
                     dialog.dismiss()
