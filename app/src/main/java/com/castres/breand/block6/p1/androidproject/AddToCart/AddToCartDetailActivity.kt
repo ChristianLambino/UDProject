@@ -1,4 +1,4 @@
-package com.castres.breand.block6.p1.androidproject
+package com.castres.breand.block6.p1.androidproject.AddToCart
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
+import com.castres.breand.block6.p1.androidproject.R
 
 
 class AddToCartDetailActivity : AppCompatActivity() {

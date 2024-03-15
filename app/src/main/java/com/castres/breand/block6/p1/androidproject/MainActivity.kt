@@ -4,7 +4,6 @@
     import android.os.Bundle
     import android.widget.ImageView
     import android.widget.TextView
-    import android.widget.Toolbar
     import androidx.appcompat.app.ActionBarDrawerToggle
     import androidx.appcompat.app.AlertDialog
     import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +12,18 @@
     import androidx.recyclerview.widget.LinearSnapHelper
     import androidx.recyclerview.widget.RecyclerView
     import androidx.recyclerview.widget.SnapHelper
+    import com.castres.breand.block6.p1.androidproject.Account.LogInActivity
+    import com.castres.breand.block6.p1.androidproject.AddToCart.AddToCartActivity
+    import com.castres.breand.block6.p1.androidproject.HorizontalRV.Components
+    import com.castres.breand.block6.p1.androidproject.NavigationDrawer.ComponentsActivity
+    import com.castres.breand.block6.p1.androidproject.HorizontalRV.ComponentsAdapter
+    import com.castres.breand.block6.p1.androidproject.HorizontalRV.NewArrivals
+    import com.castres.breand.block6.p1.androidproject.HorizontalRV.NewArrivalsAdapter
+    import com.castres.breand.block6.p1.androidproject.HorizontalRV.Partnerships
+    import com.castres.breand.block6.p1.androidproject.HorizontalRV.PartnershipsAdapter
+    import com.castres.breand.block6.p1.androidproject.NavigationDrawer.AboutActivity
+    import com.castres.breand.block6.p1.androidproject.NavigationDrawer.AppointmentsActivity
+    import com.castres.breand.block6.p1.androidproject.NavigationDrawer.ContactsActivity
     import com.google.android.material.navigation.NavigationView
 
     class MainActivity : AppCompatActivity(){
@@ -25,7 +36,7 @@
         //start of new arrivals
         private lateinit var recyclerView: RecyclerView
         private lateinit var newArrivalsList: ArrayList<NewArrivals>
-        private lateinit var newArrivalsAdapter :NewArrivalsAdapter
+        private lateinit var newArrivalsAdapter : NewArrivalsAdapter
 
         //start of components
         private lateinit var recyclerView1: RecyclerView

@@ -1,9 +1,16 @@
-package com.castres.breand.block6.p1.androidproject
+package com.castres.breand.block6.p1.androidproject.NavigationDrawer
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
+import com.castres.breand.block6.p1.androidproject.Components.COMPONENTS_ID_EXTRA
+import com.castres.breand.block6.p1.androidproject.Components.ComponentsCardAdapter
+import com.castres.breand.block6.p1.androidproject.Components.ComponentsClickListener
+import com.castres.breand.block6.p1.androidproject.Components.ComponentsDetailActivity
+import com.castres.breand.block6.p1.androidproject.Components.ComponentsItems
+import com.castres.breand.block6.p1.androidproject.Components.componentsList
+import com.castres.breand.block6.p1.androidproject.R
 import com.castres.breand.block6.p1.androidproject.databinding.ActivityComponentsBinding
 
 class ComponentsActivity : AppCompatActivity(), ComponentsClickListener {

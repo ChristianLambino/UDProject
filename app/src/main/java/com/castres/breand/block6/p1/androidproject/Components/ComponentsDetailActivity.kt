@@ -1,12 +1,12 @@
-package com.castres.breand.block6.p1.androidproject
+package com.castres.breand.block6.p1.androidproject.Components
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import android.widget.Toast
+import com.castres.breand.block6.p1.androidproject.AddToCart.CartManager
 import com.castres.breand.block6.p1.androidproject.databinding.ActivityComponentsDetailBinding
 
 class ComponentsDetailActivity : AppCompatActivity() {

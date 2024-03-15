@@ -1,4 +1,6 @@
-package com.castres.breand.block6.p1.androidproject
+package com.castres.breand.block6.p1.androidproject.AddToCart
+
+import com.castres.breand.block6.p1.androidproject.Components.ComponentsItems
 
 // CartManager.kt
 

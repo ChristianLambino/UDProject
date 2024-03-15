@@ -1,4 +1,4 @@
-package com.castres.breand.block6.p1.androidproject
+package com.castres.breand.block6.p1.androidproject.AddToCart
 
 // CartItemAdapter.kt
 
@@ -9,6 +9,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.castres.breand.block6.p1.androidproject.R
 
 class CartItemAdapter(
     private var cartItems: List<CartItem>,

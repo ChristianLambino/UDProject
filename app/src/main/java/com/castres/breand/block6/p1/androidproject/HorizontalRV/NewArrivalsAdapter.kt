@@ -1,4 +1,4 @@
-package com.castres.breand.block6.p1.androidproject
+package com.castres.breand.block6.p1.androidproject.HorizontalRV
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.castres.breand.block6.p1.androidproject.R
 
 class NewArrivalsAdapter(private val newArrivalsList : List<NewArrivals>,) :
     RecyclerView.Adapter<NewArrivalsAdapter.NewArrivalsHolder>() {

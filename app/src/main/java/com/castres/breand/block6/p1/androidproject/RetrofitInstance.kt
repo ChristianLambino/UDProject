@@ -1,6 +1,8 @@
 package com.castres.breand.block6.p1.androidproject
 
 import android.content.Context
+import com.castres.breand.block6.p1.androidproject.Account.LogInActivity
+import com.castres.breand.block6.p1.androidproject.Account.RegisterActivity
 import com.castres.breand.block6.p1.androidproject.data.model.modeling.API
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor

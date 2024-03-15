@@ -18,28 +18,28 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".ContactsActivity"
+            android:name=".NavigationDrawer.ContactsActivity"
             android:exported="false" />
         <activity
-            android:name=".AboutActivity"
+            android:name=".NavigationDrawer.AboutActivity"
             android:exported="true" />
         <activity
-            android:name=".AppointmentsActivity"
+            android:name=".NavigationDrawer.AppointmentsActivity"
             android:exported="false" />
         <activity
-            android:name=".AddToCartDetailActivity"
+            android:name=".AddToCart.AddToCartDetailActivity"
             android:exported="true" />
         <activity
-            android:name=".AddToCartActivity"
+            android:name=".AddToCart.AddToCartActivity"
             android:exported="true" />
         <activity
-            android:name=".ComponentsDetailActivity"
+            android:name=".Components.ComponentsDetailActivity"
             android:exported="true" />
         <activity
-            android:name=".ComponentsActivity"
+            android:name=".NavigationDrawer.ComponentsActivity"
             android:exported="true" />
         <activity
-            android:name=".LogInActivity"
+            android:name=".Account.LogInActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,10 +48,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".Account.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Account.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
