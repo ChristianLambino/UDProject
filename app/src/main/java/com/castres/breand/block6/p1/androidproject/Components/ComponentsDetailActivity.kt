@@ -1,70 +1,112 @@
 package com.castres.breand.block6.p1.androidproject.Components
 
+import ItemRequest
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
+import com.castres.breand.block6.p1.androidproject.AddToCart.AddToCartActivity
 import com.castres.breand.block6.p1.androidproject.AddToCart.CartManager
+import com.castres.breand.block6.p1.androidproject.RetrofitInstance
+import com.castres.breand.block6.p1.androidproject.data.model.modeling.API
 import com.castres.breand.block6.p1.androidproject.databinding.ActivityComponentsDetailBinding
+import kotlinx.coroutines.launch
 
 class ComponentsDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityComponentsDetailBinding
+    private lateinit var api: API
+    private lateinit var component: ComponentsDetailItems
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityComponentsDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Initialize API instance using RetrofitInstance
+        api = RetrofitInstance.getComp(this)
+
+        // Retrieve the component ID from the intent extras
+
+        // Fetch component details using the ID
+        fetchComponentDetails()
 
 
-        val componentsID = intent.getIntExtra(COMPONENTS_ID_EXTRA, -1)
-        val component = componentFromID(componentsID)
-        if (component != null)
-        {
-            binding.componentsDetailCover.setImageResource(component.componentsCover)
-            binding.componentsDetailItemName.text = component.componentsItemName
-            binding.componentsDetailPrice.text = component.componentsPrice
-            binding.componentsDetailDescription.text = component.componentsDescription
-            binding.componentsDetailADC.setImageResource(component.componentsAddToCart)
-            // Add click listener to componentsDetailADC
-            binding.componentsDetailADC.setOnClickListener {
+    }
 
+    private fun fetchComponentDetails() {
+        lifecycleScope.launch {
+            try {
+                // Make the network request to fetch component details by ID
+                val response = api.getComponentDetails()
+                if (response.isSuccessful) {
+                    val component = response.body()
+                    component?.let {
+                        displayComponentDetails(component)
 
-                // Add the selected item to the cart and show a Toast message
-                CartManager.addItemToCart(component)
-                // Show a Toast message when clicked
-                Toast.makeText(this, "Item Added To Cart", Toast.LENGTH_SHORT).show()
-
-                bounceAnimation(binding.componentsDetailADC)
+                    }
+                } else {
+                    // Handle unsuccessful response
+                }
+            } catch (e: Exception) {
+                // Handle failure
             }
         }
     }
 
-    private fun bounceAnimation(view: View){
-        val bounceAnimation = ScaleAnimation(
-            1.0f, 1.2f,  // Start and end values for the X-axis scaling
-            1.0f, 1.2f,  // Start and end values for the Y-axis scaling
-            Animation.RELATIVE_TO_SELF, 0.5f,  // Pivot point of X scaling
-            Animation.RELATIVE_TO_SELF, 0.5f   // Pivot point of Y scaling
+    private fun displayComponentDetails(component: ComponentsDetailItems) {
+        this.component = component
+// Load the image using Glide
+        Glide.with(binding.root)
+            .load(component.image) // Assuming component.image is a URL or a string representing an image resource
+            .into(binding.componentsDetailCover)
+
+        binding.componentsDetailItemName.text = component.prod_name
+        binding.componentsDetailPrice.text = component.price.toString()
+        binding.componentsDetailDescription.text = component.description
+        binding.componentsDetailADC
+
+        binding.componentsDetailADC.setOnClickListener {
+            addToCart(component)
+        }
+    }
+
+    private fun addToCart(component: ComponentsDetailItems) {
+        val itemRequest = ItemRequest(
+            prod_name = component.prod_name ?: "",
+            description = component.description ?: "",
+            price = component.price ?: "0",
+            image = component.image ?: "",
+            category = component.category ?: "",
+            id = component.id ?: -1
         )
 
-        bounceAnimation.duration = 300 // Duration of the animation in milliseconds
-        bounceAnimation.repeatMode = Animation.REVERSE // Reverse the animation when it ends
-        bounceAnimation.repeatCount = 1 // Number of times to repeat the animation
-
-        view.startAnimation(bounceAnimation)
-    }
-
-    private fun componentFromID(componentsID: Int): ComponentsItems?
-    {
-        for (component in componentsList)
-        {
-            if (component.id == componentsID)
-                return component
+        lifecycleScope.launch {
+            try {
+                val response = api.addToCart(itemRequest)
+                if (response.isSuccessful) {
+                    redirectToCart()
+                } else {
+                    Log.e("ComponentDetailActivity", "Add to Cart Failed: ${response.errorBody()?.string()}")
+                }
+            } catch (e: Exception) {
+                Log.e("ComponentDetailActivity", "Error fetching Component", e)
+            }
         }
-        return null
     }
+
+
+
+    fun redirectToCart(view: View? = null) {
+        val intent = Intent(this, AddToCartActivity::class.java)
+        startActivity(intent)
+    }
+
+
 }

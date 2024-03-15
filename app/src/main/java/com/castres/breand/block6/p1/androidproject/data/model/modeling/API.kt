@@ -1,5 +1,9 @@
 package com.castres.breand.block6.p1.androidproject.data.model.modeling
 
+import ItemRequest
+import ItemResponse
+import com.castres.breand.block6.p1.androidproject.Components.ComponentsDetailItems
+import com.castres.breand.block6.p1.androidproject.Components.ComponentsItems
 import com.castres.breand.block6.p1.androidproject.dataclass.EmailCheckRequest
 import com.castres.breand.block6.p1.androidproject.dataclass.LoginRequest
 import com.castres.breand.block6.p1.androidproject.dataclass.LoginResponse
@@ -7,6 +11,7 @@ import com.castres.breand.block6.p1.androidproject.dataclass.RegistrationRequest
 import com.castres.breand.block6.p1.androidproject.dataclass.UserResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -24,5 +29,17 @@ interface API {
     @Headers("Accept: application/json")
     @POST("/registration")
     suspend fun checkEmail(@Query("email") emailCheckRequest: EmailCheckRequest): Response<UserResponse>
+
+    @Headers("Accept: application/json")
+    @GET("/components")
+    suspend fun getComponentDetails(): Response<ComponentsDetailItems>
+
+    @Headers("Accept: application/json")
+    @GET("/components")
+    suspend fun getComponent(): Response<ComponentsItems>
+    @Headers("Accept: application/json")
+    @POST("/cart")
+    suspend fun addToCart(@Body items: ItemRequest): Response<ItemResponse>
+
 }
 

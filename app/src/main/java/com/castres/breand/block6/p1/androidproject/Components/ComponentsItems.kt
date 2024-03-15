@@ -1,15 +1,24 @@
 package com.castres.breand.block6.p1.androidproject.Components
 
-var componentsList = mutableListOf<ComponentsItems>()
 
 val COMPONENTS_ID_EXTRA = "componentsExtra"
 
-class ComponentsItems (
-    var componentsCover: Int,
-    var componentsItemName: String,
-    var componentsPrice: String,
-    var componentsDescription: String,
-    var componentsAddToCart : Int,
-    val id: Int? = componentsList.size
-
+data class ComponentsItems(
+    var category: String,
+    var id: Int,
+    var description: String,
+    var prod_name: String,
+    var image: String,
+    var price: String
 )
+
+
+data class ComponentsDetailItems(
+    var id: Int,
+    var prod_name: String,
+    var description: String,
+    var price: String,
+    var image: String,
+    var category: String
+)
+

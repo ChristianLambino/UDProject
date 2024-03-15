@@ -12,16 +12,16 @@ object CartManager {
         cartItemAdapter = adapter
     }
 
-    fun addItemToCart(item: ComponentsItems) {
-        val cartItem = CartItem(
-            productImageResId = item.componentsCover,
-            productName = item.componentsItemName,
-            productPrice = item.componentsPrice,
-            productDescription = item.componentsDescription
-        )
-        cartItems.add(cartItem)
-        updateAdapter()
-    }
+ //   fun addItemToCart(item: ComponentsItems) {
+   //     val cartItem = CartItem(
+        //    productImageResId = item.image,
+     //       productName = item.prod_name,
+       //     productPrice = item.price,
+         //   productDescription = item.description
+        //)
+        //cartItems.add(cartItem)
+        //updateAdapter()
+   // }
 
     fun getCartItems(): List<CartItem> {
         return cartItems.toList()

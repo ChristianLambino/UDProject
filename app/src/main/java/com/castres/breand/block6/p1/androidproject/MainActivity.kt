@@ -14,8 +14,7 @@
     import androidx.recyclerview.widget.SnapHelper
     import com.castres.breand.block6.p1.androidproject.Account.LogInActivity
     import com.castres.breand.block6.p1.androidproject.AddToCart.AddToCartActivity
-    import com.castres.breand.block6.p1.androidproject.HorizontalRV.Components
-    import com.castres.breand.block6.p1.androidproject.NavigationDrawer.ComponentsActivity
+    import com.castres.breand.block6.p1.androidproject.Components.ComponentsItems
     import com.castres.breand.block6.p1.androidproject.HorizontalRV.ComponentsAdapter
     import com.castres.breand.block6.p1.androidproject.HorizontalRV.NewArrivals
     import com.castres.breand.block6.p1.androidproject.HorizontalRV.NewArrivalsAdapter
@@ -23,6 +22,7 @@
     import com.castres.breand.block6.p1.androidproject.HorizontalRV.PartnershipsAdapter
     import com.castres.breand.block6.p1.androidproject.NavigationDrawer.AboutActivity
     import com.castres.breand.block6.p1.androidproject.NavigationDrawer.AppointmentsActivity
+    import com.castres.breand.block6.p1.androidproject.NavigationDrawer.ComponentsActivity
     import com.castres.breand.block6.p1.androidproject.NavigationDrawer.ContactsActivity
     import com.google.android.material.navigation.NavigationView
 
@@ -38,9 +38,8 @@
         private lateinit var newArrivalsList: ArrayList<NewArrivals>
         private lateinit var newArrivalsAdapter : NewArrivalsAdapter
 
-        //start of components
         private lateinit var recyclerView1: RecyclerView
-        private lateinit var componentsList: ArrayList<Components>
+        private lateinit var componentsList: MutableList<ComponentsItems>
         private lateinit var componentsAdapter: ComponentsAdapter
 
         //start of components
@@ -160,15 +159,12 @@
             componentsAdapter = ComponentsAdapter(componentsList)
             recyclerView1.adapter = componentsAdapter
         }
-        private fun addDataToComponentsList (){
-            componentsList.add(Components(R.drawable.csd_logo, "Item1"))
-            componentsList.add(Components(R.drawable.csd_logo, "Item2"))
-            componentsList.add(Components(R.drawable.csd_logo, "Item3"))
-            componentsList.add(Components(R.drawable.csd_logo, "Item4"))
-            componentsList.add(Components(R.drawable.csd_logo, "Item5"))
-            componentsList.add(Components(R.drawable.csd_logo, "Item6"))
 
-
+        private fun addDataToComponentsList() {
+            componentsList.add(ComponentsItems("GPU", -1, "", "", "",""))
+            componentsList.add(ComponentsItems("GPU", -2, "", "", "",""))
+            componentsList.add(ComponentsItems("GPU", -3, "", "", "",""))
+            // Add more items as needed
         }
 
         private fun initPartnerships(){

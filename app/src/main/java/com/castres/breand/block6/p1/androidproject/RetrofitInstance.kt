@@ -3,6 +3,8 @@ package com.castres.breand.block6.p1.androidproject
 import android.content.Context
 import com.castres.breand.block6.p1.androidproject.Account.LogInActivity
 import com.castres.breand.block6.p1.androidproject.Account.RegisterActivity
+import com.castres.breand.block6.p1.androidproject.Components.ComponentsDetailActivity
+import com.castres.breand.block6.p1.androidproject.NavigationDrawer.ComponentsActivity
 import com.castres.breand.block6.p1.androidproject.data.model.modeling.API
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
@@ -30,9 +32,11 @@ object RetrofitInstance {
             token?.let {
                 request.addHeader("Authorization", "Bearer $token")
             }
-           return chain.proceed(request.build())
+            return chain.proceed(request.build())
         }
     }
+
+
 
     fun getAPI(context: LogInActivity): API{
         val loggingInterceptor= HttpLoggingInterceptor().apply {
@@ -71,6 +75,46 @@ object RetrofitInstance {
 
         return retrofit.create(API::class.java)
     }
+
+
+    fun getComp(context: ComponentsDetailActivity): API{
+        val loggingInterceptor= HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+        val authInterceptor = AuthInterceptor(context)
+
+        val client=OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(authInterceptor)
+            .build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(URL)
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            .client(client)
+            .build()
+
+        return retrofit.create(API::class.java)
+    }
+
+    fun FetchComp(context: ComponentsActivity): API{
+        val loggingInterceptor= HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+        val authInterceptor = AuthInterceptor(context)
+
+        val client=OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(authInterceptor)
+            .build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(URL)
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            .client(client)
+            .build()
+
+        return retrofit.create(API::class.java)
+    }
+
 
 }
 //private val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
